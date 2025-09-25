@@ -33,9 +33,24 @@ body {
   backdrop-filter: blur(6px);
 }
 
+.logo {
+  width: 100px;
+  height: auto;
+  margin-right: 1rem;
+  margin-top: 0.1em;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
 h1 {
   font-size: clamp(2rem, 5vw, 3rem);
-  margin: 0 0 0.75rem;
+  margin: 0;
+  text-align: left;
 }
 
 p {
@@ -57,18 +72,6 @@ p {
 .cta:hover {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2) inset;
-}
-
-.logo {
-  width: 64px;
-  height: 64px;
-  border-radius: 14px;
-  display: inline-grid;
-  place-items: center;
-  background: linear-gradient(135deg, #38bdf8, #818cf8);
-  color: white;
-  font-weight: 700;
-  margin-bottom: 1rem;
 }
 
 .footer {
