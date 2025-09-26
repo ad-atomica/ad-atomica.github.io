@@ -1,0 +1,8 @@
+title: "Ad Atomica"
+description: "Drug discovery – 100x faster, 100x cheaper"
+url: "https://www.adatomica.com"
+baseurl: ""
+lang: en
+exclude:
+  - utils/
+  - README.md

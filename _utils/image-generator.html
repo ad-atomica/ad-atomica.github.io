@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>OG Image Generator - Ad Atomica</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial,
+          sans-serif;
+        background: #f0f0f0;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      canvas {
+        border: 1px solid #ccc;
+        margin: 20px 0;
+      }
+
+      button {
+        background: #38bdf8;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px;
+      }
+
+      button:hover {
+        background: #0ea5e9;
+      }
+
+      .preview {
+        background: #0f172a;
+        padding: 40px;
+        border-radius: 12px;
+        margin: 20px 0;
+        display: inline-block;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .logo {
+        width: 120px;
+        height: auto;
+        margin-right: 20px;
+        margin-top: 0.1em;
+      }
+
+      h1 {
+        font-size: 4rem;
+        margin: 0;
+        text-align: left;
+        font-weight: bold;
+        color: #e2e8f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Ad Atomica - Social Media Image Generator</h2>
+
+      <div class="preview">
+        <div class="logo-container">
+          <img
+            src="assets/logo.png"
+            alt="Ad Atomica Logo"
+            class="logo"
+            id="logoImg"
+          />
+          <h1>Ad<br />Atomica</h1>
+        </div>
+      </div>
+
+      <canvas id="canvas" width="1200" height="675"></canvas>
+
+      <div>
+        <button onclick="generateImage()">Generate Social Media Image</button>
+        <button onclick="downloadImage()">Download Image</button>
+      </div>
+
+      <p>
+        This will generate a 1200x675px image optimized for Twitter and other
+        social platforms.
+      </p>
+    </div>
+
+    <script>
+      function generateImage() {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Set canvas size for Twitter (1200x675)
+        canvas.width = 1200;
+        canvas.height = 675;
+
+        // Background
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Load and draw logo
+        const logoImg = document.getElementById("logoImg");
+
+        logoImg.onload = function () {
+          // Match index.html positioning exactly
+          const logoSize = 280;
+          const fontSize = 120;
+          const marginRight = 60; // 1rem equivalent
+          const marginTop = 12; // 0.1em equivalent
+
+          // Calculate text dimensions
+          ctx.font = `bold ${fontSize}px system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif`;
+          const textMetrics1 = ctx.measureText("Ad");
+          const textMetrics2 = ctx.measureText("Atomica");
+          const textWidth = Math.max(textMetrics1.width, textMetrics2.width);
+          const textHeight = fontSize * 1.2; // Approximate line height
+
+          // Total width of logo + spacing + text
+          const totalWidth = logoSize + marginRight + textWidth;
+
+          // Center the entire group horizontally
+          const startX = (canvas.width - totalWidth) / 2;
+          const logoX = startX;
+          const logoY = (canvas.height - logoSize) / 2 + marginTop + 20;
+
+          // Draw logo
+          ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
+
+          // Draw text - positioned like in index.html
+          ctx.fillStyle = "#e2e8f0";
+          ctx.textAlign = "left";
+
+          const textX = logoX + logoSize + marginRight;
+          const textY = canvas.height / 2 + textHeight / 2;
+
+          ctx.fillText("Ad", textX, textY - textHeight / 2);
+          ctx.fillText("Atomica", textX, textY + textHeight / 2);
+
+          console.log("Image generated! Click Download to save.");
+        };
+
+        // Trigger load if image is already loaded
+        if (logoImg.complete) {
+          logoImg.onload();
+        }
+      }
+
+      function downloadImage() {
+        const canvas = document.getElementById("canvas");
+        const link = document.createElement("a");
+        link.download = "ad-atomica-og-image.png";
+        link.href = canvas.toDataURL();
+        link.click();
+      }
+
+      // Generate image on page load
+      window.onload = function () {
+        setTimeout(generateImage, 1000); // Wait for logo to load
+      };
+    </script>
+  </body>
+</html>
