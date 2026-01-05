@@ -17,6 +17,20 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 html,
 body {
     height: 100%;
@@ -80,9 +94,23 @@ body {
     color: var(--fg);
 }
 
-.nav-cta {
-    color: var(--accent) !important;
+.nav-links a:focus,
+.nav-links a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.nav-links .nav-cta {
+    color: var(--accent);
     font-weight: 500;
+}
+
+.nav-links .nav-cta:focus,
+.nav-links .nav-cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
 }
 
 /* Hero Section */
@@ -103,10 +131,31 @@ body {
     font-size: clamp(3rem, 8vw, 5rem);
     font-weight: 700;
     margin: 0 0 1rem 0;
+    color: var(--fg);
     background: linear-gradient(135deg, var(--fg) 0%, var(--accent) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+@media (forced-colors: active) {
+    .hero-title {
+        color: var(--fg);
+        background: none;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: unset;
+        background-clip: unset;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .hero-title {
+        color: var(--fg);
+        background: none;
+        -webkit-background-clip: unset;
+        -webkit-text-fill-color: unset;
+        background-clip: unset;
+    }
 }
 
 .hero-subtitle {
@@ -134,6 +183,12 @@ body {
     border: 1px solid transparent;
 }
 
+.btn:focus,
+.btn:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
 .btn-primary {
     background: var(--accent);
     color: white;
@@ -146,6 +201,23 @@ body {
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
+.btn-primary:focus,
+.btn-primary:focus-visible {
+    outline: 3px solid var(--fg);
+    outline-offset: 3px;
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+    background: rgba(16, 185, 129, 0.4);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: rgba(255, 255, 255, 0.6);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+    transition: none;
+}
+
 .btn-secondary {
     background: transparent;
     color: var(--fg);
@@ -155,6 +227,23 @@ body {
 .btn-secondary:hover {
     border-color: var(--accent);
     background: rgba(16, 185, 129, 0.1);
+}
+
+.btn-secondary:focus,
+.btn-secondary:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.btn-secondary:disabled,
+.btn-secondary.disabled {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--muted);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: none;
 }
 
 /* Sections */
@@ -213,6 +302,7 @@ body {
     padding: 2rem 1.5rem;
     text-align: center;
     transition: all 0.3s;
+    will-change: transform;
 }
 
 .process-step:hover {
@@ -241,6 +331,7 @@ body {
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
+    will-change: box-shadow, border-color;
 }
 
 .advantage-card:hover {
@@ -283,6 +374,7 @@ body {
     margin: 0 auto 1.5rem auto;
     border: 3px solid var(--border);
     transition: all 0.3s;
+    will-change: box-shadow, border-color;
 }
 
 .team-member:hover .team-photo {
@@ -334,6 +426,7 @@ body {
     margin: 0 auto 1.5rem auto;
     border: 3px solid var(--border);
     transition: all 0.3s;
+    will-change: box-shadow, border-color;
 }
 
 .advisor-card:hover .advisor-photo {
@@ -377,6 +470,7 @@ body {
     border-radius: 12px;
     padding: 2rem;
     transition: all 0.3s;
+    will-change: transform;
 }
 
 .partnership-card:hover {
