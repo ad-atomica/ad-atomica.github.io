@@ -287,34 +287,19 @@ body {
     margin-top: 3rem;
 }
 
-/* Process Steps */
-.process-steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
+/* Process Diagram */
+.process-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem auto;
+    max-width: 800px;
 }
 
-.process-step {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem 1.5rem;
-    text-align: center;
-    transition: all 0.3s;
-    will-change: transform;
-}
-
-.process-step:hover {
-    border-color: var(--accent);
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
-}
-
-.process-step h3 {
-    font-size: 1.25rem;
-    margin: 0;
-    color: var(--fg);
+.process-diagram img {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
 }
 
 /* Advantages */
