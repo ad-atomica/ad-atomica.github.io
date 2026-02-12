@@ -35,7 +35,15 @@ html,
 body {
     height: 100%;
     margin: 0;
-    font-family: "Open Sans", system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+    font-family:
+        "Open Sans",
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Inter,
+        Arial,
+        sans-serif;
     background: var(--bg);
     color: var(--fg);
     line-height: 1.6;
@@ -368,9 +376,10 @@ body {
 }
 
 .team-member h3 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin: 0 0 0.5rem 0;
     color: var(--fg);
+    white-space: nowrap;
 }
 
 .team-member h4 {
@@ -381,60 +390,6 @@ body {
 }
 
 .team-member p {
-    margin: 1rem 0 0 0;
-    color: var(--muted);
-    font-size: 0.95rem;
-    text-align: left;
-}
-
-/* Advisors */
-.advisors {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2rem;
-    margin: 2rem 0;
-}
-
-.advisor-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-}
-
-.advisor-photo {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 1.5rem auto;
-    border: 3px solid var(--border);
-    transition: all 0.3s;
-    will-change: box-shadow, border-color;
-}
-
-.advisor-card:hover .advisor-photo {
-    border-color: var(--accent);
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
-}
-
-.advisor-card h4 {
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--accent);
-    margin: 0 0 0.5rem 0;
-}
-
-.advisor-card h3 {
-    font-size: 1.5rem;
-    margin: 0 0 1rem 0;
-    color: var(--fg);
-}
-
-.advisor-card p {
     margin: 1rem 0 0 0;
     color: var(--muted);
     font-size: 0.95rem;
@@ -545,7 +500,6 @@ body {
     .process-steps,
     .advantages,
     .team-grid,
-    .advisors,
     .partnerships {
         grid-template-columns: 1fr;
     }
