@@ -1,0 +1,10 @@
+{% assign section = include.section %}
+<section class="section body-section statement-section section--{{ section.theme | escape }}" id="{{ section.anchor | escape }}">
+    <div class="content-shell">
+        <div class="closing-panel statement-panel">
+            {% for paragraph in section.paragraphs %}
+                <p>{{ paragraph | escape }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

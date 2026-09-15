@@ -11,103 +11,11 @@ layout: default
         </div>
     </header>
 
-    <section class="section process-section" id="process">
-        <div class="content-shell">
-            <div class="intro-panel process-intro">
-                <div>
-                    <p class="eyebrow">{{ site.data.home.process.eyebrow | escape }}</p>
-                    <h2>{{ site.data.home.process.heading | escape }}</h2>
-                    <p class="lead">{{ site.data.home.process.lead | escape }}</p>
-                </div>
-                <div class="intro-copy">
-                    {% for paragraph in site.data.home.process.introduction %}
-                        <p>{{ paragraph | escape }}</p>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <div class="feature-grid">
-                {% for feature in site.data.home.process.features %}
-                    <article class="feature-card">
-                        <span class="feature-number" aria-hidden="true">{{ forloop.index }}.</span>
-                        <h3>{{ feature.title | escape }}</h3>
-                        <p>{{ feature.body | escape }}</p>
-                    </article>
-                {% endfor %}
-                <article class="closing-panel">
-                    <p>{{ site.data.home.process.closing.primary | escape }}</p>
-                    <p>
-                        {{ site.data.home.process.closing.programmes_prefix | escape }}
-                        <b>{{ site.data.home.process.closing.programmes_emphasis | escape }}</b>
-                        {{ site.data.home.process.closing.programmes_suffix | escape }}
-                    </p>
-                </article>
-                <article class="feature-card video-card">
-                    <h3>{{ site.data.home.process.video.heading | escape }}</h3>
-                    <div class="video-frame">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/{{ site.data.home.process.video.youtube_id | escape }}?rel=0"
-                            title="{{ site.data.home.process.video.title | escape }}"
-                            loading="lazy"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen
-                        ></iframe>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <section class="section work-section" id="how-we-work">
-        <div class="content-shell">
-            <div class="intro-panel work-intro">
-                <h2>{{ site.data.home.work.heading | escape }}</h2>
-                <p>{{ site.data.home.work.introduction | escape }}</p>
-            </div>
-            <div class="partnership-grid">
-                {% for pathway in site.data.home.work.pathways %}
-                    <article class="partnership-card">
-                        <h3>{{ pathway.title | escape }}</h3>
-                        <p>{{ pathway.body | escape }}</p>
-                    </article>
-                {% endfor %}
-            </div>
-            <div class="section-action">
-                <a class="primary-cta" href="#contact">
-                    {{ site.data.home.work.cta_label | escape }} <span aria-hidden="true">→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="section team-section" id="team">
-        <div class="content-shell">
-            <div class="intro-panel team-intro">
-                <h2>{{ site.data.home.team.heading | escape }}</h2>
-                <p>{{ site.data.home.team.introduction | escape }}</p>
-            </div>
-
-            {% assign team = site.people | where: "group", "team" | where: "published", true | sort: "order" %}
-            <div class="people-grid">
-                {% for person in team %}
-                    {% include person-card.html person=person %}
-                {% endfor %}
-            </div>
-
-            <div class="advisory-heading intro-panel">
-                <h2>{{ site.data.home.team.advisory_heading | escape }}</h2>
-                <p>{{ site.data.home.team.advisory_introduction | escape }}</p>
-            </div>
-
-            {% assign advisors = site.people | where: "group", "advisor" | where: "published", true | sort: "order" %}
-            <div class="people-grid advisory-grid">
-                {% for person in advisors %}
-                    {% include person-card.html person=person %}
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+    <div class="page-sections">
+        {% for section in site.data.home.sections %}
+            {% include section.html section=section %}
+        {% endfor %}
+    </div>
 
     {% assign contact_subject = site.data.site.contact.email_subject | uri_escape %}
     <section class="section contact-section" id="contact">

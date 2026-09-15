@@ -1,6 +1,6 @@
 <article class="person-card">
     <img
-        src="{{ include.person.image | relative_url }}"
+        src="{{ include.person.image | relative_url | escape }}"
         alt="{{ include.person.image_alt | escape }}"
         width="120"
         height="120"

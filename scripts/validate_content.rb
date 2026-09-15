@@ -47,6 +47,21 @@ def required_text(parent, key, path, errors, min: 1, max: nil)
   required_text_value(parent[key], "#{path}.#{key}", errors, min: min, max: max)
 end
 
+def optional_text(parent, key, path, errors, max: nil)
+  value = parent[key]
+  return "" if value.nil? || value == ""
+
+  label = "#{path}.#{key}"
+  unless value.is_a?(String)
+    errors << "#{label}: must be text"
+    return ""
+  end
+
+  errors << "#{label}: cannot contain only whitespace" if value.strip.empty?
+  errors << "#{label}: must be no more than #{max} characters" if max && value.strip.length > max
+  value
+end
+
 def fetch_array(parent, key, path, errors, length: nil)
   value = parent[key]
   unless value.is_a?(Array)
@@ -108,9 +123,7 @@ check(errors, seo["social_image_width"].is_a?(Integer) && seo["social_image_widt
 check(errors, seo["social_image_height"].is_a?(Integer) && seo["social_image_height"].positive?, "site.seo.social_image_height: must be a positive whole number")
 
 navigation = fetch_hash(site, "navigation", "site", errors)
-%w[process_label work_label team_label contact_label].each do |key|
-  required_text(navigation, key, "site.navigation", errors, max: 24)
-end
+required_text(navigation, "contact_label", "site.navigation", errors, max: 24)
 
 contact = fetch_hash(site, "contact", "site", errors)
 required_text(contact, "name", "site.contact", errors, max: 80)
@@ -142,56 +155,88 @@ hero = fetch_hash(home, "hero", "home", errors)
 required_text(hero, "heading", "home.hero", errors, min: 10, max: 60)
 required_text(hero, "cta_label", "home.hero", errors, max: 32)
 
-process = fetch_hash(home, "process", "home", errors)
-required_text(process, "eyebrow", "home.process", errors, max: 24)
-required_text(process, "heading", "home.process", errors, min: 10, max: 80)
-required_text(process, "lead", "home.process", errors, min: 40, max: 500)
-process_introduction = fetch_array(process, "introduction", "home.process", errors, length: 2)
-process_introduction.each_with_index do |paragraph, index|
-  required_text_value(paragraph, "home.process.introduction[#{index}]", errors, min: 40, max: 700)
-end
+sections = fetch_array(home, "sections", "home", errors)
+check(errors, (1..12).cover?(sections.length), "home.sections: must contain between 1 and 12 sections")
+allowed_section_types = %w[intro card-grid statement video people-grid].freeze
+anchors = Hash.new { |hash, key| hash[key] = [] }
+people_sections = Hash.new { |hash, key| hash[key] = [] }
+navigation_section_count = 0
 
-features = fetch_array(process, "features", "home.process", errors, length: 3)
-features.each_with_index do |feature, index|
-  unless feature.is_a?(Hash)
-    errors << "home.process.features[#{index}]: must be an object"
+sections.each_with_index do |section, index|
+  path = "home.sections[#{index}]"
+  unless section.is_a?(Hash)
+    errors << "#{path}: must be an object"
     next
   end
-  required_text(feature, "title", "home.process.features[#{index}]", errors, min: 5, max: 60)
-  required_text(feature, "body", "home.process.features[#{index}]", errors, min: 40, max: 500)
-end
 
-closing = fetch_hash(process, "closing", "home.process", errors)
-required_text(closing, "primary", "home.process.closing", errors, min: 40, max: 500)
-required_text(closing, "programmes_prefix", "home.process.closing", errors, max: 60)
-required_text(closing, "programmes_emphasis", "home.process.closing", errors, max: 80)
-required_text(closing, "programmes_suffix", "home.process.closing", errors, min: 40, max: 500)
+  section_type = required_text(section, "type", path, errors)
+  check(errors, allowed_section_types.include?(section_type), "#{path}.type: unsupported section type #{section_type.inspect}")
 
-video = fetch_hash(process, "video", "home.process", errors)
-required_text(video, "heading", "home.process.video", errors, max: 60)
-youtube_id = required_text(video, "youtube_id", "home.process.video", errors, min: 11, max: 11)
-check(errors, youtube_id.match?(/\A[A-Za-z0-9_-]{11}\z/), "home.process.video.youtube_id: must be an 11-character YouTube video ID")
-required_text(video, "title", "home.process.video", errors, min: 5, max: 100)
+  anchor = required_text(section, "anchor", path, errors, max: 50)
+  check(errors, anchor.match?(/\A[a-z0-9]+(?:-[a-z0-9]+)*\z/), "#{path}.anchor: use lowercase letters, numbers, and single hyphens")
+  check(errors, !%w[top contact].include?(anchor), "#{path}.anchor: #{anchor.inspect} is reserved")
+  anchors[anchor] << index unless anchor.empty?
+  navigation_label = optional_text(section, "navigation_label", path, errors, max: 24)
+  navigation_section_count += 1 unless navigation_label.strip.empty?
 
-work = fetch_hash(home, "work", "home", errors)
-required_text(work, "heading", "home.work", errors, max: 60)
-required_text(work, "introduction", "home.work", errors, min: 40, max: 500)
-pathways = fetch_array(work, "pathways", "home.work", errors, length: 2)
-pathways.each_with_index do |pathway, index|
-  unless pathway.is_a?(Hash)
-    errors << "home.work.pathways[#{index}]: must be an object"
-    next
+  theme = required_text(section, "theme", path, errors)
+  check(errors, %w[neutral accent].include?(theme), "#{path}.theme: must be neutral or accent")
+
+  case section_type
+  when "intro"
+    optional_text(section, "eyebrow", path, errors, max: 24)
+    required_text(section, "heading", path, errors, min: 10, max: 80)
+    optional_text(section, "lead", path, errors, max: 500)
+    paragraphs = fetch_array(section, "paragraphs", path, errors)
+    check(errors, (1..3).cover?(paragraphs.length), "#{path}.paragraphs: must contain between 1 and 3 paragraphs")
+    paragraphs.each_with_index do |paragraph, paragraph_index|
+      required_text_value(paragraph, "#{path}.paragraphs[#{paragraph_index}]", errors, min: 40, max: 700)
+    end
+  when "card-grid"
+    optional_text(section, "eyebrow", path, errors, max: 24)
+    optional_text(section, "heading", path, errors, max: 80)
+    optional_text(section, "introduction", path, errors, max: 500)
+    check(errors, [true, false].include?(section["numbered"]), "#{path}.numbered: must be true or false")
+    cards = fetch_array(section, "cards", path, errors)
+    check(errors, (2..4).cover?(cards.length), "#{path}.cards: must contain between 2 and 4 cards")
+    cards.each_with_index do |card, card_index|
+      card_path = "#{path}.cards[#{card_index}]"
+      unless card.is_a?(Hash)
+        errors << "#{card_path}: must be an object"
+        next
+      end
+      required_text(card, "title", card_path, errors, min: 5, max: 60)
+      required_text(card, "body", card_path, errors, min: 40, max: 500)
+    end
+    optional_text(section, "cta_label", path, errors, max: 32)
+  when "statement"
+    paragraphs = fetch_array(section, "paragraphs", path, errors)
+    check(errors, (1..2).cover?(paragraphs.length), "#{path}.paragraphs: must contain 1 or 2 paragraphs")
+    paragraphs.each_with_index do |paragraph, paragraph_index|
+      required_text_value(paragraph, "#{path}.paragraphs[#{paragraph_index}]", errors, min: 40, max: 700)
+    end
+  when "video"
+    required_text(section, "heading", path, errors, max: 60)
+    optional_text(section, "introduction", path, errors, max: 500)
+    youtube_id = required_text(section, "youtube_id", path, errors, min: 11, max: 11)
+    check(errors, youtube_id.match?(/\A[A-Za-z0-9_-]{11}\z/), "#{path}.youtube_id: must be an 11-character YouTube video ID")
+    required_text(section, "title", path, errors, min: 5, max: 100)
+  when "people-grid"
+    required_text(section, "heading", path, errors, max: 60)
+    optional_text(section, "introduction", path, errors, max: 500)
+    group = required_text(section, "group", path, errors)
+    check(errors, %w[team advisor].include?(group), "#{path}.group: must be team or advisor")
+    people_sections[group] << index if %w[team advisor].include?(group)
   end
-  required_text(pathway, "title", "home.work.pathways[#{index}]", errors, min: 5, max: 60)
-  required_text(pathway, "body", "home.work.pathways[#{index}]", errors, min: 40, max: 500)
 end
-required_text(work, "cta_label", "home.work", errors, max: 32)
 
-team_content = fetch_hash(home, "team", "home", errors)
-required_text(team_content, "heading", "home.team", errors, max: 60)
-required_text(team_content, "introduction", "home.team", errors, min: 40, max: 500)
-required_text(team_content, "advisory_heading", "home.team", errors, max: 60)
-required_text(team_content, "advisory_introduction", "home.team", errors, min: 40, max: 400)
+check(errors, navigation_section_count <= 5, "home.sections: no more than 5 body sections may appear in the main navigation")
+anchors.each do |anchor, indexes|
+  errors << "home.sections: duplicate anchor #{anchor.inspect} in sections #{indexes.join(', ')}" if indexes.length > 1
+end
+people_sections.each do |group, indexes|
+  errors << "home.sections: duplicate #{group} people grids in sections #{indexes.join(', ')}" if indexes.length > 1
+end
 
 home_contact = fetch_hash(home, "contact", "home", errors)
 required_text(home_contact, "eyebrow", "home.contact", errors, max: 24)
@@ -244,7 +289,7 @@ orders.each do |group, entries|
 end
 
 if errors.empty?
-  puts "Content validation passed for #{people_paths.length} profiles."
+  puts "Content validation passed for #{sections.length} homepage sections and #{people_paths.length} profiles."
 else
   warn "Content validation failed with #{errors.length} error#{errors.length == 1 ? '' : 's'}:"
   errors.each { |error| warn "- #{error}" }

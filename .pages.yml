@@ -32,201 +32,301 @@ content:
                 required: true
                 options:
                   maxlength: 32
-          - name: process
-            label: Our Process
-            type: object
-            fields:
-              - name: eyebrow
-                label: Section label
-                type: string
-                required: true
-                options:
-                  maxlength: 24
-              - name: heading
-                label: Heading
-                type: string
-                required: true
-                options:
-                  minlength: 10
-                  maxlength: 80
-              - name: lead
-                label: Lead paragraph
-                type: text
-                required: true
-                options:
-                  minlength: 40
-                  maxlength: 500
-              - name: introduction
-                label: Introduction paragraphs
-                type: text
-                required: true
-                list:
-                  min: 2
-                  max: 2
-                  collapsible: false
-                options:
-                  minlength: 40
-                  maxlength: 700
-              - name: features
-                label: Process cards
-                type: object
-                required: true
-                list:
-                  min: 3
-                  max: 3
-                  collapsible:
-                    collapsed: false
-                    summary: "{title} ({index})"
-                description: Keep exactly three cards. Drag them to change their numbered order.
-                fields:
-                  - name: title
-                    label: Heading
-                    type: string
-                    required: true
-                    options:
-                      minlength: 5
-                      maxlength: 60
-                  - name: body
-                    label: Description
-                    type: text
-                    required: true
-                    options:
-                      minlength: 40
-                      maxlength: 500
-              - name: closing
-                label: Closing statement
-                type: object
-                fields:
-                  - name: primary
-                    label: Main paragraph
-                    type: text
-                    required: true
-                    options:
-                      minlength: 40
-                      maxlength: 500
-                  - name: programmes_prefix
-                    label: Programmes sentence opening
-                    type: string
-                    required: true
-                    options:
-                      maxlength: 60
-                  - name: programmes_emphasis
-                    label: Bold words
-                    type: string
-                    required: true
-                    options:
-                      maxlength: 80
-                  - name: programmes_suffix
-                    label: Programmes sentence remainder
-                    type: text
-                    required: true
-                    options:
-                      minlength: 40
-                      maxlength: 500
-              - name: video
-                label: Platform video
-                type: object
-                fields:
-                  - name: heading
-                    label: Card heading
-                    type: string
-                    required: true
-                    options:
-                      maxlength: 60
-                  - name: youtube_id
-                    label: YouTube video ID
-                    type: string
-                    required: true
-                    description: The 11-character value after youtu.be/ or v= in a YouTube URL.
-                    pattern:
-                      regex: "^[A-Za-z0-9_-]{11}$"
-                      message: Enter an 11-character YouTube video ID, not the full URL.
-                  - name: title
-                    label: Accessible video title
-                    type: string
-                    required: true
-                    options:
-                      minlength: 5
-                      maxlength: 100
-          - name: work
-            label: How We Work
-            type: object
-            fields:
-              - name: heading
-                label: Heading
-                type: string
-                required: true
-                options:
-                  maxlength: 60
-              - name: introduction
-                label: Introduction
-                type: text
-                required: true
-                options:
-                  minlength: 40
-                  maxlength: 500
-              - name: pathways
-                label: Partnership cards
-                type: object
-                required: true
-                list:
-                  min: 2
-                  max: 2
-                  collapsible:
-                    collapsed: false
-                    summary: "{title} ({index})"
-                description: Keep exactly two cards. Drag them to change their order.
-                fields:
-                  - name: title
-                    label: Heading
-                    type: string
-                    required: true
-                    options:
-                      minlength: 5
-                      maxlength: 60
-                  - name: body
-                    label: Description
-                    type: text
-                    required: true
-                    options:
-                      minlength: 40
-                      maxlength: 500
-              - name: cta_label
-                label: Button label
-                type: string
-                required: true
-                options:
-                  maxlength: 32
-          - name: team
-            label: Team and advisory introductions
-            type: object
-            fields:
-              - name: heading
-                label: Team heading
-                type: string
-                required: true
-                options:
-                  maxlength: 60
-              - name: introduction
-                label: Team introduction
-                type: text
-                required: true
-                options:
-                  minlength: 40
-                  maxlength: 500
-              - name: advisory_heading
-                label: Advisory heading
-                type: string
-                required: true
-                options:
-                  maxlength: 60
-              - name: advisory_introduction
-                label: Advisory introduction
-                type: text
-                required: true
-                options:
-                  minlength: 40
-                  maxlength: 400
+          - name: sections
+            label: Body sections
+            type: block
+            required: true
+            description: Add, remove, or drag sections between the fixed hero and contact areas. Give no more than five sections a navigation label.
+            list:
+              min: 1
+              max: 12
+              collapsible:
+                collapsed: true
+                summary: "{index}. {type} — {heading} [{anchor}]"
+            blockKey: type
+            blocks:
+                - name: intro
+                  label: Intro
+                  fields:
+                    - name: anchor
+                      label: Anchor
+                      type: string
+                      required: true
+                      description: A unique lowercase name used for navigation, for example our-science.
+                      pattern:
+                        regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        message: Use lowercase letters, numbers, and single hyphens only.
+                      options:
+                        maxlength: 50
+                    - name: navigation_label
+                      label: Navigation label
+                      type: string
+                      description: Leave blank to keep this section out of the main navigation.
+                      options:
+                        maxlength: 24
+                    - name: theme
+                      label: Theme
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: neutral
+                            label: Neutral
+                          - name: accent
+                            label: Accent
+                    - name: eyebrow
+                      label: Section label
+                      type: string
+                      options:
+                        maxlength: 24
+                    - name: heading
+                      label: Heading
+                      type: string
+                      required: true
+                      options:
+                        minlength: 10
+                        maxlength: 80
+                    - name: lead
+                      label: Lead paragraph
+                      type: text
+                      options:
+                        maxlength: 500
+                    - name: paragraphs
+                      label: Paragraphs
+                      type: text
+                      required: true
+                      list:
+                        min: 1
+                        max: 3
+                        collapsible: false
+                      options:
+                        minlength: 40
+                        maxlength: 700
+
+                - name: card-grid
+                  label: Card grid
+                  fields:
+                    - name: anchor
+                      label: Anchor
+                      type: string
+                      required: true
+                      description: A unique lowercase name used for navigation, for example capabilities.
+                      pattern:
+                        regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        message: Use lowercase letters, numbers, and single hyphens only.
+                      options:
+                        maxlength: 50
+                    - name: navigation_label
+                      label: Navigation label
+                      type: string
+                      description: Leave blank to keep this section out of the main navigation.
+                      options:
+                        maxlength: 24
+                    - name: theme
+                      label: Theme
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: neutral
+                            label: Neutral
+                          - name: accent
+                            label: Accent
+                    - name: eyebrow
+                      label: Section label
+                      type: string
+                      options:
+                        maxlength: 24
+                    - name: heading
+                      label: Heading
+                      type: string
+                      options:
+                        maxlength: 80
+                    - name: introduction
+                      label: Introduction
+                      type: text
+                      options:
+                        maxlength: 500
+                    - name: numbered
+                      label: Number cards
+                      type: boolean
+                      required: true
+                    - name: cards
+                      label: Cards
+                      type: object
+                      required: true
+                      list:
+                        min: 2
+                        max: 4
+                        collapsible:
+                          collapsed: false
+                          summary: "{title} ({index})"
+                      fields:
+                        - name: title
+                          label: Heading
+                          type: string
+                          required: true
+                          options:
+                            minlength: 5
+                            maxlength: 60
+                        - name: body
+                          label: Description
+                          type: text
+                          required: true
+                          options:
+                            minlength: 40
+                            maxlength: 500
+                    - name: cta_label
+                      label: Contact button label
+                      type: string
+                      description: Leave blank for no button. Buttons always go to the contact section.
+                      options:
+                        maxlength: 32
+
+                - name: statement
+                  label: Statement
+                  fields:
+                    - name: anchor
+                      label: Anchor
+                      type: string
+                      required: true
+                      pattern:
+                        regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        message: Use lowercase letters, numbers, and single hyphens only.
+                      options:
+                        maxlength: 50
+                    - name: navigation_label
+                      label: Navigation label
+                      type: string
+                      description: Leave blank to keep this section out of the main navigation.
+                      options:
+                        maxlength: 24
+                    - name: theme
+                      label: Theme
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: neutral
+                            label: Neutral
+                          - name: accent
+                            label: Accent
+                    - name: paragraphs
+                      label: Statement paragraphs
+                      type: text
+                      required: true
+                      list:
+                        min: 1
+                        max: 2
+                        collapsible: false
+                      options:
+                        minlength: 40
+                        maxlength: 700
+
+                - name: video
+                  label: Video
+                  fields:
+                    - name: anchor
+                      label: Anchor
+                      type: string
+                      required: true
+                      pattern:
+                        regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        message: Use lowercase letters, numbers, and single hyphens only.
+                      options:
+                        maxlength: 50
+                    - name: navigation_label
+                      label: Navigation label
+                      type: string
+                      description: Leave blank to keep this section out of the main navigation.
+                      options:
+                        maxlength: 24
+                    - name: theme
+                      label: Theme
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: neutral
+                            label: Neutral
+                          - name: accent
+                            label: Accent
+                    - name: heading
+                      label: Heading
+                      type: string
+                      required: true
+                      options:
+                        maxlength: 60
+                    - name: introduction
+                      label: Introduction
+                      type: text
+                      options:
+                        maxlength: 500
+                    - name: youtube_id
+                      label: YouTube video ID
+                      type: string
+                      required: true
+                      description: The 11-character value after youtu.be/ or v= in a YouTube URL.
+                      pattern:
+                        regex: "^[A-Za-z0-9_-]{11}$"
+                        message: Enter an 11-character YouTube video ID, not the full URL.
+                    - name: title
+                      label: Accessible video title
+                      type: string
+                      required: true
+                      options:
+                        minlength: 5
+                        maxlength: 100
+
+                - name: people-grid
+                  label: People grid
+                  fields:
+                    - name: anchor
+                      label: Anchor
+                      type: string
+                      required: true
+                      pattern:
+                        regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+                        message: Use lowercase letters, numbers, and single hyphens only.
+                      options:
+                        maxlength: 50
+                    - name: navigation_label
+                      label: Navigation label
+                      type: string
+                      description: Leave blank to keep this section out of the main navigation.
+                      options:
+                        maxlength: 24
+                    - name: theme
+                      label: Theme
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: neutral
+                            label: Neutral
+                          - name: accent
+                            label: Accent
+                    - name: heading
+                      label: Heading
+                      type: string
+                      required: true
+                      options:
+                        maxlength: 60
+                    - name: introduction
+                      label: Introduction
+                      type: text
+                      options:
+                        maxlength: 500
+                    - name: group
+                      label: People to show
+                      type: select
+                      required: true
+                      options:
+                        values:
+                          - name: team
+                            label: Team
+                          - name: advisor
+                            label: Advisory
           - name: contact
             label: Contact section
             type: object
@@ -324,27 +424,9 @@ content:
                 readonly: true
                 description: Managed by the development team during the pilot.
           - name: navigation
-            label: Navigation labels
+            label: Navigation
             type: object
             fields:
-              - name: process_label
-                label: Process
-                type: string
-                required: true
-                options:
-                  maxlength: 24
-              - name: work_label
-                label: How we work
-                type: string
-                required: true
-                options:
-                  maxlength: 24
-              - name: team_label
-                label: Team
-                type: string
-                required: true
-                options:
-                  maxlength: 24
               - name: contact_label
                 label: Contact
                 type: string
@@ -435,8 +517,10 @@ content:
         view:
           primary: name
           fields: [image, name, role, group, order, published]
-          sort: order
-          order: asc
+          sort: [order, name]
+          default:
+            sort: order
+            order: asc
         fields:
           - name: name
             label: Name

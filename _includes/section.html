@@ -1,0 +1,13 @@
+{% assign section = include.section %}
+{% case section.type %}
+{% when "intro" %}
+    {% include sections/intro.html section=section %}
+{% when "card-grid" %}
+    {% include sections/card-grid.html section=section %}
+{% when "statement" %}
+    {% include sections/statement.html section=section %}
+{% when "video" %}
+    {% include sections/video.html section=section %}
+{% when "people-grid" %}
+    {% include sections/people-grid.html section=section %}
+{% endcase %}

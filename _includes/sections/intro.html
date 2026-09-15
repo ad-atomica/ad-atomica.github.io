@@ -1,0 +1,21 @@
+{% assign section = include.section %}
+<section class="section body-section intro-section section--{{ section.theme | escape }}" id="{{ section.anchor | escape }}">
+    <div class="content-shell">
+        <div class="intro-panel process-intro">
+            <div>
+                {% if section.eyebrow and section.eyebrow != "" %}
+                    <p class="eyebrow">{{ section.eyebrow | escape }}</p>
+                {% endif %}
+                <h2>{{ section.heading | escape }}</h2>
+                {% if section.lead and section.lead != "" %}
+                    <p class="lead">{{ section.lead | escape }}</p>
+                {% endif %}
+            </div>
+            <div class="intro-copy">
+                {% for paragraph in section.paragraphs %}
+                    <p>{{ paragraph | escape }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

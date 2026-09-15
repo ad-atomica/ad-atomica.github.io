@@ -10,9 +10,13 @@
         <span aria-hidden="true"></span>
     </label>
     <div class="nav-links" id="nav-links">
-        <a href="{{ '/#process' | relative_url }}">{{ site.data.site.navigation.process_label | escape }}</a>
-        <a href="{{ '/#how-we-work' | relative_url }}">{{ site.data.site.navigation.work_label | escape }}</a>
-        <a href="{{ '/#team' | relative_url }}">{{ site.data.site.navigation.team_label | escape }}</a>
+        {% for section in site.data.home.sections %}
+            {% assign navigation_label = section.navigation_label | default: "" | strip %}
+            {% if navigation_label != "" %}
+                {% assign section_href = '/#' | append: section.anchor %}
+                <a href="{{ section_href | relative_url }}">{{ navigation_label | escape }}</a>
+            {% endif %}
+        {% endfor %}
         <a class="nav-cta" href="{{ '/#contact' | relative_url }}">{{ site.data.site.navigation.contact_label | escape }}</a>
     </div>
 </nav>

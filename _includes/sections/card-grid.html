@@ -1,0 +1,40 @@
+{% assign section = include.section %}
+{% assign card_count = section.cards | size %}
+{% assign eyebrow = section.eyebrow | default: "" %}
+{% assign heading = section.heading | default: "" %}
+{% assign introduction = section.introduction | default: "" %}
+<section class="section body-section card-grid-section section--{{ section.theme | escape }}" id="{{ section.anchor | escape }}">
+    <div class="content-shell">
+        {% if eyebrow != "" or heading != "" or introduction != "" %}
+            <div class="intro-panel section-intro">
+                {% if section.eyebrow and section.eyebrow != "" %}
+                    <p class="eyebrow">{{ section.eyebrow | escape }}</p>
+                {% endif %}
+                {% if section.heading and section.heading != "" %}
+                    <h2>{{ section.heading | escape }}</h2>
+                {% endif %}
+                {% if section.introduction and section.introduction != "" %}
+                    <p>{{ section.introduction | escape }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        <div class="content-card-grid content-card-grid--{{ card_count }}">
+            {% for card in section.cards %}
+                <article class="feature-card">
+                    {% if section.numbered %}
+                        <span class="feature-number" aria-hidden="true">{{ forloop.index }}.</span>
+                    {% endif %}
+                    <h3>{{ card.title | escape }}</h3>
+                    <p>{{ card.body | escape }}</p>
+                </article>
+            {% endfor %}
+        </div>
+        {% if section.cta_label and section.cta_label != "" %}
+            <div class="section-action">
+                <a class="primary-cta" href="#contact">
+                    {{ section.cta_label | escape }} <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>

@@ -28,6 +28,9 @@ jobs:
       - name: Validate editable content
         run: bundle exec ruby scripts/validate_content.rb
 
+      - name: Test invalid content is rejected
+        run: bundle exec ruby scripts/test_content_validation.rb
+
       - name: Build site
         env:
           JEKYLL_ENV: production

@@ -11,6 +11,20 @@ Pages CMS lets the team update approved website content without editing HTML or 
 5. Save. Each save creates a commit on `cms-preview` and starts the validation and preview builds.
 6. Wait for the checks to pass, then inspect the stable Cloudflare preview URL supplied by the website maintainer. Check both a desktop and a phone-sized screen.
 
+## Restructure the homepage
+
+The hero stays first and the contact area stays last. Everything between them appears under **Body sections**:
+
+- Drag a section to change its position.
+- Select **Add item** to choose an Intro, Card grid, Statement, Video, or People grid.
+- Delete a body section when it is no longer needed.
+- Give every section a unique lowercase anchor such as `our-science`.
+- Add a navigation label only when the section should appear in the main menu. No more than five body sections can appear there.
+- Choose the neutral or accent theme; layout and colours within those themes are fixed.
+- Card grids contain two to four cards. Their optional button always leads to the contact area.
+
+Always review structural changes at desktop and phone widths before requesting publication.
+
 For headshots, use a square JPG, PNG, or WebP image between 240 and 1200 pixels wide and no larger than 500 KB. Add a concise image description, normally the person's name.
 
 ## Request publication

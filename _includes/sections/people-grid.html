@@ -1,0 +1,17 @@
+{% assign section = include.section %}
+{% assign people = site.people | where: "group", section.group | where: "published", true | sort: "order" %}
+<section class="section body-section people-section section--{{ section.theme | escape }}" id="{{ section.anchor | escape }}">
+    <div class="content-shell">
+        <div class="intro-panel people-intro">
+            <h2>{{ section.heading | escape }}</h2>
+            {% if section.introduction and section.introduction != "" %}
+                <p>{{ section.introduction | escape }}</p>
+            {% endif %}
+        </div>
+        <div class="people-grid people-grid--{{ section.group | escape }}">
+            {% for person in people %}
+                {% include person-card.html person=person %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
