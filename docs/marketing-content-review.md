@@ -6,7 +6,7 @@ Working notes for iterating on the website's positioning, proof, and conversion 
 
 ### Current issue
 
-“Drug discovery reinvented” is memorable, but it does not tell a first-time visitor what Ad Atomica does, who it is for, or what outcome it provides.
+“Drug discovery reinvented” is memorable, but it does not tell a first-time visitor what Ad Atomica does, who it is for, or what outcome it provides. The opening also lacks a strong hook: visitors may decide within seconds whether the site is relevant, so the first screen needs an immediate reason to keep reading.
 
 ### Content to define
 
@@ -18,7 +18,7 @@ Working notes for iterating on the website's positioning, proof, and conversion 
 
 ### Working direction
 
-Keep “Drug discovery reinvented” as the brand line, supported by one sentence that identifies the service, audience, and outcome. Avoid adding unsupported speed or cost claims to the hero.
+Keep “Drug discovery reinvented” as the brand line, supported by one sentence that identifies the service, audience, and outcome. Lead with a strong, verified statistic or accomplishment if one is available. It should provide immediate proof of success rather than relying on a general promise. Avoid adding unsupported speed or cost claims to the hero.
 
 ## 2. Evidence and scientific proof
 
@@ -44,7 +44,39 @@ For every quantitative or comparative claim, choose one of:
 2. Qualify it precisely.
 3. Remove or soften it.
 
-## 3. Commercial proposition
+### Placement and treatment
+
+Put the strongest defensible statistic or accomplishment near the top of the page. It should be specific, easy to understand, and directly relevant to a prospective client. Do not make visitors read through the process before seeing proof that the approach has delivered results.
+
+## 3. “Our Process” messaging
+
+The process copy currently explains what the platform does, but it needs to communicate more clearly why each stage matters to the client. Apply a “so what?” test to every technical statement: spell out the commercial or programme benefit rather than asking readers to infer it.
+
+### Process section 2: finding molecules others would miss
+
+The section should explain why broader exploration of chemical space matters. Potential client benefits to substantiate and express include:
+
+- More viable starting points for a programme.
+- Alternative scaffolds when conventional approaches have stalled.
+- More options when existing chemistry presents selectivity, toxicity, synthesis, or IP challenges.
+- A lower risk of overlooking a high-potential series because it falls outside familiar chemical territory.
+- Greater programme optionality before committing resources to optimisation.
+
+The final copy should connect “finding molecules others would miss” to a tangible programme outcome, not leave it as a standalone technical capability.
+
+### Process section 3: learning from every result
+
+The section should state how the feedback loop directly benefits the client. Potential benefits to substantiate and express include:
+
+- Fewer unproductive design and experiment cycles.
+- Faster, better-informed programme decisions.
+- Lower spend on compounds or experiments that add little useful information.
+- Quicker progression towards a viable series—or an earlier decision to stop an unpromising direction.
+- A stronger chance of advancing ahead of competing programmes.
+
+The copy should explicitly connect better learning to time saved, money saved, better candidates, and competitive advantage. Any comparative speed, cost, or quality claim still needs supporting evidence.
+
+## 4. Commercial proposition
 
 ### Current issue
 
@@ -61,7 +93,7 @@ The site presents Ad Atomica as a platform company, discovery-services provider,
 - How collaboration, IP, and grant-funded academic work differ.
 - Whether the internal pipeline is central to the proposition or supporting context.
 
-## 4. “How We Work” narrative
+## 5. “How We Work” narrative
 
 ### Current issue
 
@@ -78,7 +110,7 @@ The section currently describes two customer categories rather than the engageme
 
 The academic partnership and discovery-services pathways can remain, but should sit beneath a clear shared process.
 
-## 5. Audience pathways
+## 6. Audience pathways
 
 ### Current issue
 
@@ -92,7 +124,7 @@ Academic groups, biotech/pharma teams, investors, and potential partners receive
 - Whether investor enquiries require a visible pathway.
 - What information Ad Atomica wants someone to include in an initial enquiry.
 
-## 6. Calls to action
+## 7. Calls to action
 
 ### Current issue
 
@@ -108,7 +140,7 @@ Academic groups, biotech/pharma teams, investors, and potential partners receive
 
 The final contact section should set expectations for what happens after contact and what information is useful to provide.
 
-## 7. Team and advisors
+## 8. Team and advisors
 
 ### Current issue
 
@@ -121,7 +153,7 @@ The credentials are strong, but the biographies are lengthy relative to the plat
 - Connect advisor expertise explicitly to platform validation, chemistry, clinical strategy, or programme decisions.
 - Confirm that citation counts, trial stages, and prior-company claims are current and supportable.
 
-## 8. Company credibility and footer information
+## 9. Company credibility and footer information
 
 ### Content to gather
 
@@ -134,20 +166,36 @@ The credentials are strong, but the biographies are lengthy relative to the plat
 
 If Ad Atomica is a UK limited company, confirm the statutory information that must appear on the website.
 
-## 9. Recommended narrative order
+## 10. Copy voice and impact
+
+### Current issue
+
+The overall copy feels too cautious and lacks punch. It describes capabilities, but does not consistently turn them into compelling reasons for a prospective client to act.
+
+### Direction
+
+- Lead with outcomes and proof, then explain the mechanism.
+- Make every technical claim answer “so what does this mean for the client?”
+- Prefer specific, concrete language over broad statements about reinvention or innovation.
+- Use shorter, more decisive sentences for key messages.
+- Bring the strongest accomplishments forward rather than burying them.
+- Give each section one memorable takeaway.
+- Preserve scientific accuracy and avoid increasing impact through unsupported superlatives.
+
+## 11. Recommended narrative order
 
 Once the content above is available, evaluate this homepage sequence:
 
-1. Brand line, plain-language proposition, and CTA.
-2. Defensible evidence or proof points.
-3. What the platform delivers.
+1. Strong verified statistic or accomplishment, brand line, plain-language proposition, and CTA.
+2. Supporting evidence or proof points.
+3. What the platform delivers for the client.
 4. How the closed loop works.
 5. Engagement pathways.
 6. Representative programme or case study.
 7. Condensed team and advisors.
 8. Specific final CTA.
 
-## 10. Content approval checklist
+## 12. Content approval checklist
 
 Before publishing revised copy, confirm:
 
