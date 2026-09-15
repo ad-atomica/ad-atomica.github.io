@@ -182,6 +182,7 @@ a:hover {
 
 .nav-control {
     position: absolute;
+    display: none;
     width: 1px;
     height: 1px;
     opacity: 0;
@@ -624,16 +625,17 @@ a:hover {
 
 .footer {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: end;
+    grid-template-columns: minmax(180px, 0.75fr) minmax(320px, 1.5fr) auto;
+    align-items: start;
     gap: 36px;
-    padding: 30px 40px;
+    padding: 36px 40px;
     background: var(--sand-deep);
     font-size: 14px;
     line-height: 1.55;
 }
 
-.footer-brand {
+.footer-brand,
+.footer-company {
     display: grid;
     align-content: start;
     gap: 8px;
@@ -648,6 +650,16 @@ a:hover {
 
 .footer p {
     margin-bottom: 0;
+}
+
+.footer-company {
+    max-width: 520px;
+    font-style: normal;
+}
+
+.footer-company strong {
+    color: var(--ink);
+    font-size: 15px;
 }
 
 .footer-links {
@@ -739,6 +751,15 @@ a:hover {
     .people-grid:not(.advisory-grid) .person-card:nth-child(4) {
         grid-column: auto;
     }
+
+    .footer {
+        grid-template-columns: minmax(0, 0.8fr) minmax(280px, 1.5fr);
+    }
+
+    .footer-links {
+        grid-column: 1 / -1;
+        justify-content: flex-start;
+    }
 }
 
 @media (max-width: 760px) {
@@ -755,6 +776,7 @@ a:hover {
         width: 142px;
     }
 
+    .nav-control,
     .nav-toggle {
         display: block;
     }
@@ -888,7 +910,13 @@ a:hover {
     }
 
     .footer {
+        grid-template-columns: 1fr;
+        gap: 28px;
         padding: 30px 20px;
+    }
+
+    .footer-links {
+        grid-column: auto;
     }
 }
 

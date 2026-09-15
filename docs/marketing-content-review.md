@@ -159,11 +159,10 @@ The credentials are strong, but the biographies are lengthy relative to the plat
 
 - Copyright uses the legal company name.
 - The company LinkedIn page and contact email are linked.
-- Registration and registered-office details are intentionally omitted.
+- The registered number, registered office, registration jurisdiction, and limited-company status are displayed.
 
 ### Still to address
 
-- Confirm a lower-profile place for any required statutory disclosure. The details are intentionally omitted from the footer, but [GOV.UK guidance](https://www.gov.uk/running-a-limited-company/signs-stationery-and-promotional-material) says limited-company websites must display the registered number, registered office, registration jurisdiction, and limited-company status.
 - Publish and link a privacy policy.
 - Document the privacy implications of loading embedded YouTube content and Google-hosted fonts.
 - Decide whether publications, news, careers, or partner links have enough active content to warrant dedicated pages.
