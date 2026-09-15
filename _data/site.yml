@@ -14,14 +14,10 @@ navigation:
   team_label: Meet the Team
   contact_label: Get in Touch
 contact:
-  eyebrow: Contact
-  heading: Get in Touch
-  body: We welcome conversations with pharma, biotech, academic groups, and investors. Whether you have a target in mind or want to understand how we work, we would be glad to talk.
   name: Adam Davis
   role: Chief Executive Officer
   email: adam@adatomica.com
   email_subject: Ad Atomica enquiry
-  cta_label: Start a conversation
 company:
   legal_name: Ad Atomica Limited
   registration_country: England and Wales

@@ -30,9 +30,7 @@ def fetch_hash(parent, key, path, errors)
   value
 end
 
-def required_text(parent, key, path, errors, min: 1, max: nil)
-  value = parent[key]
-  label = "#{path}.#{key}"
+def required_text_value(value, label, errors, min: 1, max: nil)
   unless value.is_a?(String)
     errors << "#{label}: must be text"
     return ""
@@ -42,6 +40,20 @@ def required_text(parent, key, path, errors, min: 1, max: nil)
   errors << "#{label}: is required" if length.zero?
   errors << "#{label}: must be at least #{min} characters" if length.positive? && length < min
   errors << "#{label}: must be no more than #{max} characters" if max && length > max
+  value
+end
+
+def required_text(parent, key, path, errors, min: 1, max: nil)
+  required_text_value(parent[key], "#{path}.#{key}", errors, min: min, max: max)
+end
+
+def fetch_array(parent, key, path, errors, length: nil)
+  value = parent[key]
+  unless value.is_a?(Array)
+    errors << "#{path}.#{key}: must be a list"
+    return []
+  end
+  errors << "#{path}.#{key}: must contain exactly #{length} items" if length && value.length != length
   value
 end
 
@@ -101,15 +113,11 @@ navigation = fetch_hash(site, "navigation", "site", errors)
 end
 
 contact = fetch_hash(site, "contact", "site", errors)
-required_text(contact, "eyebrow", "site.contact", errors, max: 24)
-required_text(contact, "heading", "site.contact", errors, max: 50)
-required_text(contact, "body", "site.contact", errors, min: 40, max: 400)
 required_text(contact, "name", "site.contact", errors, max: 80)
 required_text(contact, "role", "site.contact", errors, max: 100)
 email = required_text(contact, "email", "site.contact", errors, max: 254)
 check(errors, email.match?(/\A[^@\s]+@[^@\s]+\.[^@\s]+\z/), "site.contact.email: must be a complete email address")
 required_text(contact, "email_subject", "site.contact", errors, max: 100)
-required_text(contact, "cta_label", "site.contact", errors, max: 32)
 
 company = fetch_hash(site, "company", "site", errors)
 required_text(company, "legal_name", "site.company", errors, max: 100)
@@ -126,6 +134,70 @@ begin
 rescue URI::InvalidURIError
   errors << "site.links.linkedin: must be a valid URL"
 end
+
+home_path = File.join(ROOT, "_data/home.yml")
+home = load_yaml(home_path, errors)
+
+hero = fetch_hash(home, "hero", "home", errors)
+required_text(hero, "heading", "home.hero", errors, min: 10, max: 60)
+required_text(hero, "cta_label", "home.hero", errors, max: 32)
+
+process = fetch_hash(home, "process", "home", errors)
+required_text(process, "eyebrow", "home.process", errors, max: 24)
+required_text(process, "heading", "home.process", errors, min: 10, max: 80)
+required_text(process, "lead", "home.process", errors, min: 40, max: 500)
+process_introduction = fetch_array(process, "introduction", "home.process", errors, length: 2)
+process_introduction.each_with_index do |paragraph, index|
+  required_text_value(paragraph, "home.process.introduction[#{index}]", errors, min: 40, max: 700)
+end
+
+features = fetch_array(process, "features", "home.process", errors, length: 3)
+features.each_with_index do |feature, index|
+  unless feature.is_a?(Hash)
+    errors << "home.process.features[#{index}]: must be an object"
+    next
+  end
+  required_text(feature, "title", "home.process.features[#{index}]", errors, min: 5, max: 60)
+  required_text(feature, "body", "home.process.features[#{index}]", errors, min: 40, max: 500)
+end
+
+closing = fetch_hash(process, "closing", "home.process", errors)
+required_text(closing, "primary", "home.process.closing", errors, min: 40, max: 500)
+required_text(closing, "programmes_prefix", "home.process.closing", errors, max: 60)
+required_text(closing, "programmes_emphasis", "home.process.closing", errors, max: 80)
+required_text(closing, "programmes_suffix", "home.process.closing", errors, min: 40, max: 500)
+
+video = fetch_hash(process, "video", "home.process", errors)
+required_text(video, "heading", "home.process.video", errors, max: 60)
+youtube_id = required_text(video, "youtube_id", "home.process.video", errors, min: 11, max: 11)
+check(errors, youtube_id.match?(/\A[A-Za-z0-9_-]{11}\z/), "home.process.video.youtube_id: must be an 11-character YouTube video ID")
+required_text(video, "title", "home.process.video", errors, min: 5, max: 100)
+
+work = fetch_hash(home, "work", "home", errors)
+required_text(work, "heading", "home.work", errors, max: 60)
+required_text(work, "introduction", "home.work", errors, min: 40, max: 500)
+pathways = fetch_array(work, "pathways", "home.work", errors, length: 2)
+pathways.each_with_index do |pathway, index|
+  unless pathway.is_a?(Hash)
+    errors << "home.work.pathways[#{index}]: must be an object"
+    next
+  end
+  required_text(pathway, "title", "home.work.pathways[#{index}]", errors, min: 5, max: 60)
+  required_text(pathway, "body", "home.work.pathways[#{index}]", errors, min: 40, max: 500)
+end
+required_text(work, "cta_label", "home.work", errors, max: 32)
+
+team_content = fetch_hash(home, "team", "home", errors)
+required_text(team_content, "heading", "home.team", errors, max: 60)
+required_text(team_content, "introduction", "home.team", errors, min: 40, max: 500)
+required_text(team_content, "advisory_heading", "home.team", errors, max: 60)
+required_text(team_content, "advisory_introduction", "home.team", errors, min: 40, max: 400)
+
+home_contact = fetch_hash(home, "contact", "home", errors)
+required_text(home_contact, "eyebrow", "home.contact", errors, max: 24)
+required_text(home_contact, "heading", "home.contact", errors, max: 50)
+required_text(home_contact, "body", "home.contact", errors, min: 40, max: 400)
+required_text(home_contact, "cta_label", "home.contact", errors, max: 32)
 
 orders = Hash.new { |hash, key| hash[key] = [] }
 people_paths = Dir[File.join(ROOT, "_people/*.md")].sort

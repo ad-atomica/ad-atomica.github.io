@@ -1,13 +1,13 @@
 # Editing the Ad Atomica website
 
-Pages CMS lets the team update approved website content without editing HTML or code. During the pilot, it exposes contact and company details, navigation labels, search/social copy, and existing team profiles.
+Pages CMS lets the team update approved website content without editing HTML or code. It exposes all homepage sections and cards, contact and company details, navigation labels, search/social copy, and existing team profiles.
 
 ## Edit and preview
 
 1. Sign in to Pages CMS using the invitation email.
 2. Open `ad-atomica/ad-atomica.github.io`.
 3. Select the `cms-preview` branch. Do not edit `main`.
-4. Open **Site settings** or **People** and make the change.
+4. Open **Homepage sections**, **Site settings**, or **People** and make the change.
 5. Save. Each save creates a commit on `cms-preview` and starts the validation and preview builds.
 6. Wait for the checks to pass, then inspect the stable Cloudflare preview URL supplied by the website maintainer. Check both a desktop and a phone-sized screen.
 
@@ -26,7 +26,7 @@ A publication request includes all unpublished CMS changes currently on `cms-pre
 ## If something goes wrong
 
 - **A save is rejected:** confirm that `cms-preview`, not `main`, is selected. If it still fails, send the error to the website maintainer; do not switch branches to work around it.
-- **A check fails:** open the failed check for its message. Common causes are a missing required field, duplicated display order, invalid link, or an oversized/non-square image.
+- **A check fails:** open the failed check for its message. Common causes are a missing required field, the wrong number of cards, an invalid YouTube ID or link, duplicated display order, or an oversized/non-square image.
 - **The preview is stale:** wait for the Cloudflare deployment to complete and reload the page. If the deployment failed, contact the website maintainer.
 - **Incorrect content was published:** ask a maintainer to revert the publication pull request rather than editing production directly.
 

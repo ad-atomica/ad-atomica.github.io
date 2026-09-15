@@ -16,6 +16,7 @@ The repository contains the Pages CMS schema and automation. Complete these repo
 CMS-managed publication paths are:
 
 ```text
+_data/home.yml
 _data/site.yml
 _people/
 assets/uploads/
@@ -37,7 +38,7 @@ Record the stable `cms-preview.<project>.pages.dev` alias and provide it to edit
 
 ## Acceptance test
 
-Ask a nontechnical editor to update one biography, replace one headshot, preview the result, and request publication. Confirm that:
+Ask a nontechnical editor to update homepage copy and one biography, replace one headshot, preview the result, and request publication. Confirm that:
 
 - Pages CMS cannot write to `main`;
 - validation catches invalid profile data and images;

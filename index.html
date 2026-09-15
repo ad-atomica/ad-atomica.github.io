@@ -2,192 +2,130 @@
 layout: default
 ---
 <main id="main-content">
-            <header class="hero" id="top">
-                <div class="content-shell">
-                    <h1>Drug discovery reinvented.</h1>
-                    <a class="primary-cta hero-cta" href="#contact">
-                        Get in Touch <span aria-hidden="true">→</span>
-                    </a>
+    <header class="hero" id="top">
+        <div class="content-shell">
+            <h1>{{ site.data.home.hero.heading | escape }}</h1>
+            <a class="primary-cta hero-cta" href="#contact">
+                {{ site.data.home.hero.cta_label | escape }} <span aria-hidden="true">→</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="section process-section" id="process">
+        <div class="content-shell">
+            <div class="intro-panel process-intro">
+                <div>
+                    <p class="eyebrow">{{ site.data.home.process.eyebrow | escape }}</p>
+                    <h2>{{ site.data.home.process.heading | escape }}</h2>
+                    <p class="lead">{{ site.data.home.process.lead | escape }}</p>
                 </div>
-            </header>
-
-            <section class="section process-section" id="process">
-                <div class="content-shell">
-                    <div class="intro-panel process-intro">
-                        <div>
-                            <p class="eyebrow">Our Process</p>
-                            <h2>Most drug discovery begins with screening.</h2>
-                            <p class="lead">
-                                Millions of existing compounds are tested against a biological
-                                target to find the few that bind. It works, but it is slow, expensive,
-                                and limited to chemistry that already exists.
-                            </p>
-                        </div>
-                        <div class="intro-copy">
-                            <p>
-                                Ad Atomica's platform designs molecules atom by atom specifically for a target
-                                rather than searching for compounds that already exist. Rapid,
-                                iterative optimisation loops generate hits and take them through to
-                                lead candidates at a fraction of the cost and time of traditional
-                                programmes.
-                            </p>
-                            <p>
-                                Our closed loop system integrates computational design with
-                                experimental validation. Each cycle refines our models, improving
-                                predictive accuracy and the quality of the next round of design. We
-                                either partner with outsourced laboratories for rapid synthesis and
-                                testing, or our clients choose to do that in-house as part of our
-                                collaboration.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="feature-grid">
-                        <article class="feature-card">
-                            <span class="feature-number" aria-hidden="true">1.</span>
-                            <h3>Multi-Parameter Optimisation</h3>
-                            <p>
-                                Our system optimises for drug likeness, ADMET/PK, target
-                                affinity, and selectivity together, and from the outset.
-                            </p>
-                        </article>
-                        <article class="feature-card">
-                            <span class="feature-number" aria-hidden="true">2.</span>
-                            <h3>Atom by Atom Construction</h3>
-                            <p>
-                                Unlike screening-based approaches, we build molecules from first
-                                principles, exploring vast chemical space to discover novel scaffolds
-                                that conventional methods would miss.
-                            </p>
-                        </article>
-                        <article class="feature-card">
-                            <span class="feature-number" aria-hidden="true">3.</span>
-                            <h3>Continuous Learning Loop</h3>
-                            <p>
-                                Every synthesis and assay result feeds back into our models, so each
-                                iteration improves our predictive power and the sophistication of the
-                                next design.
-                            </p>
-                        </article>
-                        <article class="closing-panel">
-                            <p>
-                                Ad Atomica's platform designs highly optimised candidates in weeks,
-                                dramatically reducing both discovery timelines and costs whilst
-                                maintaining rigorous scientific standards.
-                            </p>
-                            <p>
-                                We run <b>internal programmes</b> on targets we select, progressing
-                                them towards preclinical development. Each one helps us advance the
-                                platform and better serve our clients and partners.
-                            </p>
-                        </article>
-                        <article class="feature-card video-card">
-                            <h3>Watch the platform in action</h3>
-                            <div class="video-frame">
-                                <iframe
-                                    src="https://www.youtube-nocookie.com/embed/-tbrCukfYLg?rel=0"
-                                    title="Ad Atomica platform video"
-                                    loading="lazy"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen
-                                ></iframe>
-                            </div>
-                        </article>
-                    </div>
-
+                <div class="intro-copy">
+                    {% for paragraph in site.data.home.process.introduction %}
+                        <p>{{ paragraph | escape }}</p>
+                    {% endfor %}
                 </div>
-            </section>
+            </div>
 
-            <section class="section work-section" id="how-we-work">
-                <div class="content-shell">
-                    <div class="intro-panel work-intro">
-                        <h2>How We Work</h2>
-                        <p>
-                            Ad Atomica works with biotech and pharma teams and with academic groups.
-                            In both collaborations, you provide the target and we build and execute
-                            the molecular design and optimisation programmes.
-                        </p>
+            <div class="feature-grid">
+                {% for feature in site.data.home.process.features %}
+                    <article class="feature-card">
+                        <span class="feature-number" aria-hidden="true">{{ forloop.index }}.</span>
+                        <h3>{{ feature.title | escape }}</h3>
+                        <p>{{ feature.body | escape }}</p>
+                    </article>
+                {% endfor %}
+                <article class="closing-panel">
+                    <p>{{ site.data.home.process.closing.primary | escape }}</p>
+                    <p>
+                        {{ site.data.home.process.closing.programmes_prefix | escape }}
+                        <b>{{ site.data.home.process.closing.programmes_emphasis | escape }}</b>
+                        {{ site.data.home.process.closing.programmes_suffix | escape }}
+                    </p>
+                </article>
+                <article class="feature-card video-card">
+                    <h3>{{ site.data.home.process.video.heading | escape }}</h3>
+                    <div class="video-frame">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/{{ site.data.home.process.video.youtube_id | escape }}?rel=0"
+                            title="{{ site.data.home.process.video.title | escape }}"
+                            loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
                     </div>
-                    <div class="partnership-grid">
-                        <article class="partnership-card">
-                            <h3>Discovery Services</h3>
-                            <p>
-                                We run hit to lead and optimisation programmes end to end, taking
-                                your target through successive design cycles to a series ready for
-                                pre-clinical development.
-                            </p>
-                        </article>
-                        <article class="partnership-card">
-                            <h3>Academic Partnerships</h3>
-                            <p>
-                                We partner with academic groups to design and synthesise a first
-                                molecular series, testing a hypothesis in your field, then progress
-                                successful programmes together.
-                            </p>
-                        </article>
-                    </div>
-                    <div class="section-action">
-                        <a class="primary-cta" href="#contact">
-                            Start a conversation <span aria-hidden="true">→</span>
-                        </a>
-                    </div>
-                </div>
-            </section>
+                </article>
+            </div>
+        </div>
+    </section>
 
-            <section class="section team-section" id="team">
-                <div class="content-shell">
-                    <div class="intro-panel team-intro">
-                        <h2>The Team</h2>
-                        <p>
-                            Our team combines entrepreneurial execution, deep technical expertise
-                            and scientific rigour. We have brought together expertise from AI,
-                            biotech, pharma and academia, and bring a pragmatic approach to the needs
-                            of our clients and partners.
-                        </p>
-                    </div>
+    <section class="section work-section" id="how-we-work">
+        <div class="content-shell">
+            <div class="intro-panel work-intro">
+                <h2>{{ site.data.home.work.heading | escape }}</h2>
+                <p>{{ site.data.home.work.introduction | escape }}</p>
+            </div>
+            <div class="partnership-grid">
+                {% for pathway in site.data.home.work.pathways %}
+                    <article class="partnership-card">
+                        <h3>{{ pathway.title | escape }}</h3>
+                        <p>{{ pathway.body | escape }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+            <div class="section-action">
+                <a class="primary-cta" href="#contact">
+                    {{ site.data.home.work.cta_label | escape }} <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-                    {% assign team = site.people | where: "group", "team" | where: "published", true | sort: "order" %}
-                    <div class="people-grid">
-                        {% for person in team %}
-                            {% include person-card.html person=person %}
-                        {% endfor %}
-                    </div>
+    <section class="section team-section" id="team">
+        <div class="content-shell">
+            <div class="intro-panel team-intro">
+                <h2>{{ site.data.home.team.heading | escape }}</h2>
+                <p>{{ site.data.home.team.introduction | escape }}</p>
+            </div>
 
-                    <div class="advisory-heading intro-panel">
-                        <h2>Advisory</h2>
-                        <p>
-                            Our scientific advisors bring world class expertise in oncology,
-                            synthetic chemistry and drug development.
-                        </p>
-                    </div>
+            {% assign team = site.people | where: "group", "team" | where: "published", true | sort: "order" %}
+            <div class="people-grid">
+                {% for person in team %}
+                    {% include person-card.html person=person %}
+                {% endfor %}
+            </div>
 
-                    {% assign advisors = site.people | where: "group", "advisor" | where: "published", true | sort: "order" %}
-                    <div class="people-grid advisory-grid">
-                        {% for person in advisors %}
-                            {% include person-card.html person=person %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </section>
+            <div class="advisory-heading intro-panel">
+                <h2>{{ site.data.home.team.advisory_heading | escape }}</h2>
+                <p>{{ site.data.home.team.advisory_introduction | escape }}</p>
+            </div>
 
-            {% assign contact_subject = site.data.site.contact.email_subject | uri_escape %}
-            <section class="section contact-section" id="contact">
-                <div class="contact-card">
-                    <p class="eyebrow">{{ site.data.site.contact.eyebrow | escape }}</p>
-                    <h2>{{ site.data.site.contact.heading | escape }}</h2>
-                    <p class="contact-copy">{{ site.data.site.contact.body | escape }}</p>
-                    <div class="contact-details">
-                        <p class="contact-name">{{ site.data.site.contact.name | escape }}</p>
-                        <p class="role">{{ site.data.site.contact.role | escape }}</p>
-                        <a href="mailto:{{ site.data.site.contact.email | escape }}">{{ site.data.site.contact.email | escape }}</a>
-                    </div>
-                    <a
-                        class="primary-cta contact-cta"
-                        href="mailto:{{ site.data.site.contact.email | escape }}?subject={{ contact_subject }}"
-                    >
-                        {{ site.data.site.contact.cta_label | escape }} <span aria-hidden="true">→</span>
-                    </a>
-                </div>
-            </section>
+            {% assign advisors = site.people | where: "group", "advisor" | where: "published", true | sort: "order" %}
+            <div class="people-grid advisory-grid">
+                {% for person in advisors %}
+                    {% include person-card.html person=person %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    {% assign contact_subject = site.data.site.contact.email_subject | uri_escape %}
+    <section class="section contact-section" id="contact">
+        <div class="contact-card">
+            <p class="eyebrow">{{ site.data.home.contact.eyebrow | escape }}</p>
+            <h2>{{ site.data.home.contact.heading | escape }}</h2>
+            <p class="contact-copy">{{ site.data.home.contact.body | escape }}</p>
+            <div class="contact-details">
+                <p class="contact-name">{{ site.data.site.contact.name | escape }}</p>
+                <p class="role">{{ site.data.site.contact.role | escape }}</p>
+                <a href="mailto:{{ site.data.site.contact.email | escape }}">{{ site.data.site.contact.email | escape }}</a>
+            </div>
+            <a
+                class="primary-cta contact-cta"
+                href="mailto:{{ site.data.site.contact.email | escape }}?subject={{ contact_subject }}"
+            >
+                {{ site.data.home.contact.cta_label | escape }} <span aria-hidden="true">→</span>
+            </a>
+        </div>
+    </section>
 </main>

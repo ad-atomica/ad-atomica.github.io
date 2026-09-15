@@ -9,6 +9,254 @@ content:
     label: Website
     type: group
     items:
+      - name: home-page
+        label: Homepage sections
+        type: file
+        path: _data/home.yml
+        format: yaml
+        fields:
+          - name: hero
+            label: Hero
+            type: object
+            fields:
+              - name: heading
+                label: Main heading
+                type: string
+                required: true
+                options:
+                  minlength: 10
+                  maxlength: 60
+              - name: cta_label
+                label: Button label
+                type: string
+                required: true
+                options:
+                  maxlength: 32
+          - name: process
+            label: Our Process
+            type: object
+            fields:
+              - name: eyebrow
+                label: Section label
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: heading
+                label: Heading
+                type: string
+                required: true
+                options:
+                  minlength: 10
+                  maxlength: 80
+              - name: lead
+                label: Lead paragraph
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 500
+              - name: introduction
+                label: Introduction paragraphs
+                type: text
+                required: true
+                list:
+                  min: 2
+                  max: 2
+                  collapsible: false
+                options:
+                  minlength: 40
+                  maxlength: 700
+              - name: features
+                label: Process cards
+                type: object
+                required: true
+                list:
+                  min: 3
+                  max: 3
+                  collapsible:
+                    collapsed: false
+                    summary: "{title} ({index})"
+                description: Keep exactly three cards. Drag them to change their numbered order.
+                fields:
+                  - name: title
+                    label: Heading
+                    type: string
+                    required: true
+                    options:
+                      minlength: 5
+                      maxlength: 60
+                  - name: body
+                    label: Description
+                    type: text
+                    required: true
+                    options:
+                      minlength: 40
+                      maxlength: 500
+              - name: closing
+                label: Closing statement
+                type: object
+                fields:
+                  - name: primary
+                    label: Main paragraph
+                    type: text
+                    required: true
+                    options:
+                      minlength: 40
+                      maxlength: 500
+                  - name: programmes_prefix
+                    label: Programmes sentence opening
+                    type: string
+                    required: true
+                    options:
+                      maxlength: 60
+                  - name: programmes_emphasis
+                    label: Bold words
+                    type: string
+                    required: true
+                    options:
+                      maxlength: 80
+                  - name: programmes_suffix
+                    label: Programmes sentence remainder
+                    type: text
+                    required: true
+                    options:
+                      minlength: 40
+                      maxlength: 500
+              - name: video
+                label: Platform video
+                type: object
+                fields:
+                  - name: heading
+                    label: Card heading
+                    type: string
+                    required: true
+                    options:
+                      maxlength: 60
+                  - name: youtube_id
+                    label: YouTube video ID
+                    type: string
+                    required: true
+                    description: The 11-character value after youtu.be/ or v= in a YouTube URL.
+                    pattern:
+                      regex: "^[A-Za-z0-9_-]{11}$"
+                      message: Enter an 11-character YouTube video ID, not the full URL.
+                  - name: title
+                    label: Accessible video title
+                    type: string
+                    required: true
+                    options:
+                      minlength: 5
+                      maxlength: 100
+          - name: work
+            label: How We Work
+            type: object
+            fields:
+              - name: heading
+                label: Heading
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: introduction
+                label: Introduction
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 500
+              - name: pathways
+                label: Partnership cards
+                type: object
+                required: true
+                list:
+                  min: 2
+                  max: 2
+                  collapsible:
+                    collapsed: false
+                    summary: "{title} ({index})"
+                description: Keep exactly two cards. Drag them to change their order.
+                fields:
+                  - name: title
+                    label: Heading
+                    type: string
+                    required: true
+                    options:
+                      minlength: 5
+                      maxlength: 60
+                  - name: body
+                    label: Description
+                    type: text
+                    required: true
+                    options:
+                      minlength: 40
+                      maxlength: 500
+              - name: cta_label
+                label: Button label
+                type: string
+                required: true
+                options:
+                  maxlength: 32
+          - name: team
+            label: Team and advisory introductions
+            type: object
+            fields:
+              - name: heading
+                label: Team heading
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: introduction
+                label: Team introduction
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 500
+              - name: advisory_heading
+                label: Advisory heading
+                type: string
+                required: true
+                options:
+                  maxlength: 60
+              - name: advisory_introduction
+                label: Advisory introduction
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 400
+          - name: contact
+            label: Contact section
+            type: object
+            fields:
+              - name: eyebrow
+                label: Section label
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: heading
+                label: Heading
+                type: string
+                required: true
+                options:
+                  maxlength: 50
+              - name: body
+                label: Introduction
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 400
+              - name: cta_label
+                label: Button label
+                type: string
+                required: true
+                options:
+                  maxlength: 32
+
       - name: site-settings
         label: Site settings
         type: file
@@ -104,28 +352,9 @@ content:
                 options:
                   maxlength: 24
           - name: contact
-            label: Contact section
+            label: Contact details
             type: object
             fields:
-              - name: eyebrow
-                label: Section label
-                type: string
-                required: true
-                options:
-                  maxlength: 24
-              - name: heading
-                label: Heading
-                type: string
-                required: true
-                options:
-                  maxlength: 50
-              - name: body
-                label: Introduction
-                type: text
-                required: true
-                options:
-                  minlength: 40
-                  maxlength: 400
               - name: name
                 label: Contact name
                 type: string
@@ -151,12 +380,6 @@ content:
                 required: true
                 options:
                   maxlength: 100
-              - name: cta_label
-                label: Button label
-                type: string
-                required: true
-                options:
-                  maxlength: 32
           - name: company
             label: Company details
             type: object

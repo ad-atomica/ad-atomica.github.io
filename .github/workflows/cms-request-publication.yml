@@ -78,9 +78,9 @@ jobs:
 
           publication_branch="cms-publication-${GITHUB_RUN_ID}"
           git switch --create "$publication_branch" origin/main
-          git rm -r --ignore-unmatch -- _data/site.yml _people assets/uploads
-          git checkout "$SOURCE_SHA" -- _data/site.yml _people assets/uploads
-          git add -- _data/site.yml _people assets/uploads
+          git rm -r --ignore-unmatch -- _data/home.yml _data/site.yml _people assets/uploads
+          git checkout "$SOURCE_SHA" -- _data/home.yml _data/site.yml _people assets/uploads
+          git add -- _data/home.yml _data/site.yml _people assets/uploads
 
           if git diff --cached --quiet; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
@@ -88,7 +88,7 @@ jobs:
             exit 0
           fi
 
-          unexpected=$(git diff --cached --name-only | grep -Ev '^(_data/site\.yml|_people/|assets/uploads/)' || true)
+          unexpected=$(git diff --cached --name-only | grep -Ev '^(_data/(home|site)\.yml|_people/|assets/uploads/)' || true)
           if test -n "$unexpected"; then
             echo "Unexpected publication paths:" >&2
             echo "$unexpected" >&2
