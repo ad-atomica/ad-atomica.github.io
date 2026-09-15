@@ -155,16 +155,19 @@ The credentials are strong, but the biographies are lengthy relative to the plat
 
 ## 9. Company credibility and footer information
 
-### Content to gather
+### Current footer
 
-- Legal company name and registration details.
-- Registered office or required jurisdictional information.
-- Privacy policy.
-- LinkedIn and other active company channels.
-- Publications, news, careers, or partner links where applicable.
-- Consent/privacy implications of embedded third-party media.
+- Copyright uses the legal company name.
+- The company LinkedIn page and contact email are linked.
+- Registration and registered-office details are intentionally omitted.
 
-If Ad Atomica is a UK limited company, confirm the statutory information that must appear on the website.
+### Still to address
+
+- Confirm a lower-profile place for any required statutory disclosure. The details are intentionally omitted from the footer, but [GOV.UK guidance](https://www.gov.uk/running-a-limited-company/signs-stationery-and-promotional-material) says limited-company websites must display the registered number, registered office, registration jurisdiction, and limited-company status.
+- Publish and link a privacy policy.
+- Document the privacy implications of loading embedded YouTube content and Google-hosted fonts.
+- Decide whether publications, news, careers, or partner links have enough active content to warrant dedicated pages.
+- Add any other active company channels; avoid empty or dormant social links.
 
 ## 10. Copy voice and impact
 
