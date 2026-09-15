@@ -32,10 +32,9 @@ body {
     margin: 0;
     background: var(--sand);
     color: var(--ink);
-    font-family: var(--font-display);
-    line-height: 1.5;
+    font-family: var(--font-fallback);
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke: 0.3px currentcolor;
 }
 
 body::before {
@@ -49,7 +48,7 @@ body::before {
 
 body,
 button {
-    font-family: var(--font-display);
+    font-family: var(--font-fallback);
 }
 
 h1,
@@ -62,6 +61,7 @@ p {
 h1,
 h2,
 h3 {
+    font-family: var(--font-display);
     font-weight: 400;
     -webkit-text-stroke: 0.8px currentcolor;
 }
@@ -224,6 +224,12 @@ a:hover {
     background: transparent;
 }
 
+.hero .content-shell {
+    display: grid;
+    justify-items: start;
+    gap: 34px;
+}
+
 .hero h1 {
     max-width: 680px;
     margin: 0;
@@ -232,10 +238,18 @@ a:hover {
     text-wrap: balance;
 }
 
+.hero-cta {
+    min-width: 176px;
+}
+
 .section {
     padding: 100px 40px;
     background: transparent;
     scroll-margin-top: 76px;
+}
+
+.section + .section {
+    border-top: 1px solid rgba(27, 42, 74, 0.1);
 }
 
 .work-section {
@@ -255,7 +269,33 @@ a:hover {
     border: 1px solid var(--border);
     border-radius: var(--card-radius);
     background: var(--card-background);
+}
+
+.intro-panel,
+.closing-panel,
+.contact-card {
     box-shadow: var(--shadow);
+}
+
+.intro-panel {
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-panel::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 5px;
+    background: var(--ink);
+    content: "";
+}
+
+.feature-card,
+.partnership-card,
+.person-card {
+    box-shadow: 0 10px 26px rgba(73, 50, 22, 0.065);
 }
 
 .process-intro {
@@ -307,7 +347,6 @@ a:hover {
 .work-intro p,
 .team-intro p,
 .advisory-heading p,
-.person-card > p,
 .partnership-card p,
 .contact-copy {
     margin-bottom: 0;
@@ -315,7 +354,7 @@ a:hover {
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
     margin-bottom: 56px;
 }
@@ -323,6 +362,7 @@ a:hover {
 .feature-card {
     min-width: 0;
     padding: 28px;
+    border-top: 4px solid var(--ink);
 }
 
 .feature-number {
@@ -346,12 +386,16 @@ a:hover {
 
 .video-card {
     display: grid;
-    gap: 16px;
-    align-content: start;
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+    gap: 30px;
+    align-items: center;
 }
 
 .video-card h3 {
+    max-width: 300px;
     margin-bottom: 0;
+    font-size: clamp(32px, 4vw, 48px);
 }
 
 .video-frame {
@@ -373,10 +417,12 @@ a:hover {
 
 .closing-panel {
     display: grid;
-    max-width: 800px;
-    gap: 20px;
-    padding: 32px 40px;
-    font-size: 19.5px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 40px;
+    padding: 36px 40px;
+    border-left: 6px solid var(--ink);
+    font-size: 18px;
     line-height: 1.65;
 }
 
@@ -401,6 +447,7 @@ a:hover {
 
 .partnership-card {
     padding: 32px;
+    border-top: 4px solid var(--ink);
 }
 
 .partnership-card h3 {
@@ -414,6 +461,12 @@ a:hover {
     line-height: 1.65;
 }
 
+.section-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+}
+
 .team-intro,
 .advisory-heading {
     width: 100%;
@@ -423,21 +476,28 @@ a:hover {
 
 .people-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 20px;
 }
 
 .person-card {
     display: grid;
-    gap: 14px;
+    grid-column: span 2;
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 18px;
     align-content: start;
+    align-items: center;
     min-width: 0;
-    padding: 24px;
+    padding: 22px;
+}
+
+.people-grid:not(.advisory-grid) .person-card:nth-child(4) {
+    grid-column: 2 / span 2;
 }
 
 .person-card img {
-    width: 120px;
-    height: 120px;
+    width: 84px;
+    height: 84px;
     border: 1px solid var(--border);
     border-radius: 50%;
     background: #fff;
@@ -445,20 +505,29 @@ a:hover {
     object-position: top;
 }
 
+.person-card > div {
+    min-width: 0;
+}
+
 .person-card h3 {
     margin-bottom: 4px;
-    font-size: 26px;
-    line-height: 1.1;
+    font-size: 25px;
+    line-height: 1.05;
 }
 
 .person-card .role {
     margin-bottom: 0;
+    font-size: 12px;
     overflow-wrap: anywhere;
 }
 
-.person-card > p {
-    font-size: 17px;
-    line-height: 1.6;
+.person-bio {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 15.5px;
+    line-height: 1.65;
 }
 
 .advisory-heading {
@@ -517,40 +586,43 @@ a:hover {
     overflow-wrap: anywhere;
 }
 
-.contact-cta {
+.primary-cta {
     display: inline-flex;
     min-height: 52px;
     align-items: center;
     justify-content: center;
     gap: 12px;
-    margin-top: 28px;
     padding: 13px 26px;
     border-radius: 999px;
     background: var(--ink);
     color: var(--sand);
-    font-family: var(--font-fallback);
     font-size: 17px;
     font-weight: 700;
     letter-spacing: 0.02em;
+    box-shadow: 0 10px 24px rgba(27, 42, 74, 0.16);
     transition:
         background 180ms ease,
         color 180ms ease,
         transform 180ms ease;
 }
 
-.contact-cta span {
+.contact-cta {
+    margin-top: 28px;
+}
+
+.primary-cta span {
     font-size: 23px;
     line-height: 1;
     transition: transform 180ms ease;
 }
 
-.contact-cta:hover {
+.primary-cta:hover {
     background: var(--ink-light);
     color: #fff;
     transform: translateY(-2px);
 }
 
-.contact-cta:hover span {
+.primary-cta:hover span {
     transform: translateX(3px);
 }
 
@@ -639,6 +711,11 @@ a:hover {
     .people-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .person-card,
+    .people-grid:not(.advisory-grid) .person-card:nth-child(4) {
+        grid-column: auto;
+    }
 }
 
 @media (max-width: 760px) {
@@ -716,15 +793,25 @@ a:hover {
     }
 
     .section {
-        padding: 76px 20px;
+        padding: 68px 20px;
         scroll-margin-top: 67px;
     }
 
     .process-intro,
     .feature-grid,
     .partnership-grid,
-    .people-grid {
+    .people-grid,
+    .closing-panel,
+    .video-card {
         grid-template-columns: 1fr;
+    }
+
+    .video-card {
+        gap: 20px;
+    }
+
+    .video-card h3 {
+        max-width: none;
     }
 
     .process-intro {
@@ -750,6 +837,7 @@ a:hover {
     }
 
     .closing-panel {
+        gap: 20px;
         padding: 28px;
     }
 
@@ -767,6 +855,11 @@ a:hover {
         padding: 42px 24px;
     }
 
+    .section-action {
+        justify-content: stretch;
+    }
+
+    .section-action .primary-cta,
     .contact-cta {
         width: 100%;
     }
