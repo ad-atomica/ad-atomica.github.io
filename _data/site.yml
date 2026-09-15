@@ -1,0 +1,31 @@
+language: en
+seo:
+  title: Ad Atomica — Drug discovery reinvented
+  description: Ad Atomica designs highly optimised drug candidates atom by atom, reducing discovery timelines and costs.
+  social_description: AI-powered molecular design and optimisation for faster, more efficient drug discovery.
+  social_image: /assets/uploads/social/link-preview-og-2026.jpg
+  social_image_width: 1200
+  social_image_height: 630
+  social_image_alt: Ad Atomica — Drug discovery reinvented
+  twitter_image: /assets/uploads/social/link-preview-twitter-2026.jpg
+navigation:
+  process_label: Our Process
+  work_label: How We Work
+  team_label: Meet the Team
+  contact_label: Get in Touch
+contact:
+  eyebrow: Contact
+  heading: Get in Touch
+  body: We welcome conversations with pharma, biotech, academic groups, and investors. Whether you have a target in mind or want to understand how we work, we would be glad to talk.
+  name: Adam Davis
+  role: Chief Executive Officer
+  email: adam@adatomica.com
+  email_subject: Ad Atomica enquiry
+  cta_label: Start a conversation
+company:
+  legal_name: Ad Atomica Limited
+  registration_country: England and Wales
+  company_number: "16928663"
+  registered_office: Ground Floor, Cooper House, 316 Regents Park Road, London, United Kingdom, N3 2JX
+links:
+  linkedin: https://www.linkedin.com/company/adatomica

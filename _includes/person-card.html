@@ -1,0 +1,13 @@
+<article class="person-card">
+    <img
+        src="{{ include.person.image | relative_url }}"
+        alt="{{ include.person.image_alt | escape }}"
+        width="120"
+        height="120"
+    />
+    <div>
+        <h3>{{ include.person.name | escape }}</h3>
+        <p class="role">{{ include.person.role | escape }}</p>
+    </div>
+    <p class="person-bio">{{ include.person.bio | escape }}</p>
+</article>

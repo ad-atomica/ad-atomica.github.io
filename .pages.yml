@@ -1,0 +1,296 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+  rename: safe
+  extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: website
+    label: Website
+    type: group
+    items:
+      - name: site-settings
+        label: Site settings
+        type: file
+        path: _data/site.yml
+        format: yaml
+        fields:
+          - name: language
+            label: Site language
+            type: string
+            required: true
+            readonly: true
+          - name: seo
+            label: Search and social sharing
+            type: object
+            fields:
+              - name: title
+                label: Site title
+                type: string
+                required: true
+                options:
+                  minlength: 20
+                  maxlength: 70
+              - name: description
+                label: Search description
+                type: text
+                required: true
+                description: Aim for 120–160 characters. Avoid unapproved performance claims.
+                options:
+                  minlength: 50
+                  maxlength: 170
+              - name: social_description
+                label: Social sharing description
+                type: text
+                required: true
+                options:
+                  minlength: 50
+                  maxlength: 200
+              - name: social_image
+                label: Social sharing image
+                type: image
+                required: true
+                readonly: true
+                description: Managed by the development team during the pilot.
+              - name: social_image_width
+                label: Social image width
+                type: number
+                required: true
+                readonly: true
+              - name: social_image_height
+                label: Social image height
+                type: number
+                required: true
+                readonly: true
+              - name: social_image_alt
+                label: Social image description
+                type: string
+                required: true
+                options:
+                  minlength: 5
+                  maxlength: 140
+              - name: twitter_image
+                label: X/Twitter sharing image
+                type: image
+                required: true
+                readonly: true
+                description: Managed by the development team during the pilot.
+          - name: navigation
+            label: Navigation labels
+            type: object
+            fields:
+              - name: process_label
+                label: Process
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: work_label
+                label: How we work
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: team_label
+                label: Team
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: contact_label
+                label: Contact
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+          - name: contact
+            label: Contact section
+            type: object
+            fields:
+              - name: eyebrow
+                label: Section label
+                type: string
+                required: true
+                options:
+                  maxlength: 24
+              - name: heading
+                label: Heading
+                type: string
+                required: true
+                options:
+                  maxlength: 50
+              - name: body
+                label: Introduction
+                type: text
+                required: true
+                options:
+                  minlength: 40
+                  maxlength: 400
+              - name: name
+                label: Contact name
+                type: string
+                required: true
+                options:
+                  maxlength: 80
+              - name: role
+                label: Contact role
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: email
+                label: Email address
+                type: string
+                required: true
+                pattern:
+                  regex: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+                  message: Enter a complete email address.
+              - name: email_subject
+                label: Email subject
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: cta_label
+                label: Button label
+                type: string
+                required: true
+                options:
+                  maxlength: 32
+          - name: company
+            label: Company details
+            type: object
+            fields:
+              - name: legal_name
+                label: Legal name
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: registration_country
+                label: Registration jurisdiction
+                type: string
+                required: true
+                options:
+                  maxlength: 100
+              - name: company_number
+                label: Company number
+                type: string
+                required: true
+                pattern:
+                  regex: "^[A-Za-z0-9]{6,12}$"
+                  message: Use the registered company number without spaces.
+              - name: registered_office
+                label: Registered office
+                type: text
+                required: true
+                options:
+                  maxlength: 250
+          - name: links
+            label: External links
+            type: object
+            fields:
+              - name: linkedin
+                label: LinkedIn
+                type: string
+                required: true
+                pattern:
+                  regex: "^https://(www\\.)?linkedin\\.com/.+$"
+                  message: Enter a full LinkedIn HTTPS URL.
+
+      - name: people
+        label: People
+        type: collection
+        path: _people
+        format: yaml-frontmatter
+        filename: "{primary}.md"
+        subfolders: false
+        operations:
+          create: false
+          rename: false
+          delete: false
+        view:
+          primary: name
+          fields: [image, name, role, group, order, published]
+          sort: order
+          order: asc
+        fields:
+          - name: name
+            label: Name
+            type: string
+            required: true
+            options:
+              minlength: 2
+              maxlength: 80
+          - name: role
+            label: Role
+            type: string
+            required: true
+            options:
+              minlength: 2
+              maxlength: 100
+          - name: group
+            label: Group
+            type: select
+            required: true
+            options:
+              values:
+                - name: team
+                  label: Team
+                - name: advisor
+                  label: Advisory
+          - name: order
+            label: Display order
+            type: number
+            required: true
+            description: Use each number once within a group.
+          - name: image
+            label: Headshot
+            type: image
+            required: true
+            description: Upload a square JPG, PNG, or WebP image, 240–1200 pixels wide and no larger than 500 KB.
+            options:
+              extensions: [jpg, jpeg, png, webp]
+              rename: safe
+          - name: image_alt
+            label: Image description
+            type: string
+            required: true
+            description: Usually the person's name. Describe meaningful visual context if needed.
+            options:
+              minlength: 2
+              maxlength: 140
+          - name: published
+            label: Show on the website
+            type: boolean
+            required: true
+          - name: bio
+            label: Biography
+            type: text
+            required: true
+            options:
+              minlength: 40
+              maxlength: 600
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content: add {name}"
+      update: "content: update {name}"
+      delete: "content: remove {name}"
+      rename: "content: rename {oldFilename} to {newFilename}"
+
+actions:
+  - name: request-publication
+    label: Request publication
+    workflow: cms-request-publication.yml
+    ref: current
+    cancelable: false
+    confirm:
+      title: Request publication?
+      message: Validate the current editorial preview and open a pull request for review.
+      button: Request publication

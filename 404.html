@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Page Not Found — Ad Atomica</title>
-    <link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-2026.png" />
-    <link rel="apple-touch-icon" href="assets/favicon-2026.png" />
-    <link rel="stylesheet" href="styles.css?v=ac28953f" />
-  </head>
-  <body>
-    <main class="wrap">
-      <section class="card">
-        <h1>Page not found</h1>
-        <p>What you're looking for doesn't exist or has been moved.</p>
-        <a class="cta" href="/">Back to home</a>
-      </section>
-    </main>
-  </body>
-</html>
+---
+layout: default
+meta_title: Page Not Found — Ad Atomica
+description: The requested page could not be found.
+noindex: true
+hide_navigation: true
+hide_footer: true
+permalink: /404.html
+---
+<main id="main-content" class="wrap">
+  <section class="card">
+    <h1>Page not found</h1>
+    <p>What you're looking for doesn't exist or has been moved.</p>
+    <a class="cta" href="{{ '/' | relative_url }}">Back to home</a>
+  </section>
+</main>

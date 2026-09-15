@@ -1,8 +1,16 @@
-title: "Ad Atomica"
-description: "Drug discovery – 100x faster, 100x cheaper"
-url: "https://www.adatomica.com"
+url: "https://adatomica.com"
 baseurl: ""
-lang: en
+permalink: pretty
+
+collections:
+  people:
+    output: false
+
 exclude:
-  - utils/
+  - Adatomica website redesign/
+  - docs/
+  - scripts/
+  - vendor/
+  - Gemfile
+  - Gemfile.lock
   - README.md

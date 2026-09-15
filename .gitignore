@@ -1,6 +1,7 @@
 .DS_Store
 
 .context
+_site/
 
 # Local redesign source files (the production assets are copied into /assets)
 Adatomica website redesign/

@@ -1,0 +1,18 @@
+<nav class="navbar" aria-label="Main navigation">
+    <a class="brand" href="{{ '/#top' | relative_url }}" aria-label="Ad Atomica home">
+        <img src="{{ '/assets/logo.png' | relative_url }}" alt="Ad Atomica" />
+    </a>
+    <input class="nav-control" type="checkbox" id="nav-control" />
+    <label class="nav-toggle" for="nav-control" aria-controls="nav-links">
+        <span class="sr-only">Toggle navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+    </label>
+    <div class="nav-links" id="nav-links">
+        <a href="{{ '/#process' | relative_url }}">{{ site.data.site.navigation.process_label | escape }}</a>
+        <a href="{{ '/#how-we-work' | relative_url }}">{{ site.data.site.navigation.work_label | escape }}</a>
+        <a href="{{ '/#team' | relative_url }}">{{ site.data.site.navigation.team_label | escape }}</a>
+        <a class="nav-cta" href="{{ '/#contact' | relative_url }}">{{ site.data.site.navigation.contact_label | escape }}</a>
+    </div>
+</nav>

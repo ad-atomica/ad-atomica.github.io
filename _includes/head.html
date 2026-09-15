@@ -1,0 +1,36 @@
+{% assign meta_title = page.meta_title | default: site.data.site.seo.title %}
+{% assign meta_description = page.description | default: site.data.site.seo.description %}
+{% assign social_description = page.social_description | default: site.data.site.seo.social_description %}
+{% assign canonical_url = page.url | replace: 'index.html', '' | absolute_url %}
+{% assign social_image = site.data.site.seo.social_image | absolute_url %}
+{% assign twitter_image = site.data.site.seo.twitter_image | absolute_url %}
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{{ meta_title | escape }}</title>
+<meta name="description" content="{{ meta_description | escape }}" />
+<meta name="theme-color" content="#f8dbaa" />
+<link rel="canonical" href="{{ canonical_url }}" />
+{% if page.noindex %}<meta name="robots" content="noindex" />{% endif %}
+
+<meta property="og:title" content="{{ meta_title | escape }}" />
+<meta property="og:description" content="{{ social_description | escape }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ canonical_url }}" />
+<meta property="og:image" content="{{ social_image }}" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="{{ site.data.site.seo.social_image_width }}" />
+<meta property="og:image:height" content="{{ site.data.site.seo.social_image_height }}" />
+<meta property="og:image:alt" content="{{ site.data.site.seo.social_image_alt | escape }}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ meta_title | escape }}" />
+<meta name="twitter:description" content="{{ social_description | escape }}" />
+<meta name="twitter:image" content="{{ twitter_image }}" />
+<meta name="twitter:image:alt" content="{{ site.data.site.seo.social_image_alt | escape }}" />
+
+<link rel="icon" type="image/png" sizes="512x512" href="{{ '/assets/favicon-2026.png' | relative_url }}" />
+<link rel="apple-touch-icon" href="{{ '/assets/favicon-2026.png' | relative_url }}" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="preload" href="{{ '/assets/fonts/hand-blue.woff' | relative_url }}" as="font" type="font/woff" crossorigin />
+<link rel="stylesheet" href="{{ '/styles.css' | relative_url }}?v=ac28953f" />

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ site.data.site.language | default: 'en' }}">
+    <head>
+        {% include head.html %}
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Skip to content</a>
+
+        {% unless page.hide_navigation %}
+            {% include navigation.html %}
+        {% endunless %}
+
+        {{ content }}
+
+        {% unless page.hide_footer %}
+            {% include footer.html %}
+        {% endunless %}
+    </body>
+</html>

@@ -1,0 +1,15 @@
+<footer class="footer">
+    <div class="footer-brand">
+        <img src="{{ '/assets/logo.png' | relative_url }}" alt="Ad Atomica" />
+        <p>© {{ site.time | date: '%Y' }} {{ site.data.site.company.legal_name | escape }}. All rights reserved.</p>
+    </div>
+    <address class="footer-company">
+        <p><strong>{{ site.data.site.company.legal_name | escape }}</strong></p>
+        <p>Registered in {{ site.data.site.company.registration_country | escape }} · Company no. {{ site.data.site.company.company_number | escape }}</p>
+        <p>Registered office: {{ site.data.site.company.registered_office | escape }}</p>
+    </address>
+    <nav class="footer-links" aria-label="Company information">
+        <a href="{{ site.data.site.links.linkedin | escape }}">LinkedIn</a>
+        <a href="mailto:{{ site.data.site.contact.email | escape }}">Contact</a>
+    </nav>
+</footer>

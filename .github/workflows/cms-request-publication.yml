@@ -1,0 +1,123 @@
+name: Request CMS publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS action payload as JSON
+        required: true
+        type: string
+
+permissions:
+  actions: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: cms-publication
+  cancel-in-progress: false
+
+jobs:
+  verify-request:
+    name: Verify Pages CMS request
+    runs-on: ubuntu-latest
+    outputs:
+      source_sha: ${{ steps.payload.outputs.source_sha }}
+      editor_name: ${{ steps.payload.outputs.editor_name }}
+    steps:
+      - name: Validate request payload
+        id: payload
+        env:
+          PAYLOAD: ${{ inputs.payload }}
+        run: |
+          set -euo pipefail
+          source=$(jq -r '.source // empty' <<<"$PAYLOAD")
+          action=$(jq -r '.action.name // empty' <<<"$PAYLOAD")
+          ref=$(jq -r '.repository.ref // empty' <<<"$PAYLOAD")
+          source_sha=$(jq -r '.repository.sha // empty' <<<"$PAYLOAD")
+          editor_name=$(jq -r '.triggeredBy.name // .triggeredBy.email // "Pages CMS editor"' <<<"$PAYLOAD")
+
+          test "$source" = "pages-cms"
+          test "$action" = "request-publication"
+          test "$ref" = "cms-preview"
+          [[ "$source_sha" =~ ^[0-9a-f]{40}$ ]]
+          test "$source_sha" = "$GITHUB_SHA"
+          test "$GITHUB_REF_NAME" = "cms-preview"
+
+          editor_name=${editor_name//$'\r'/ }
+          editor_name=${editor_name//$'\n'/ }
+          test "${#editor_name}" -le 100
+
+          echo "source_sha=$source_sha" >> "$GITHUB_OUTPUT"
+          echo "editor_name=$editor_name" >> "$GITHUB_OUTPUT"
+
+  validate:
+    name: Validate editorial snapshot
+    needs: verify-request
+    uses: ./.github/workflows/site-checks.yml
+
+  open-pull-request:
+    name: Open publication pull request
+    needs: [verify-request, validate]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Create publication snapshot
+        id: snapshot
+        env:
+          SOURCE_SHA: ${{ needs.verify-request.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          git fetch origin main cms-preview
+          git cat-file -e "$SOURCE_SHA^{commit}"
+          git merge-base --is-ancestor "$SOURCE_SHA" origin/cms-preview
+
+          publication_branch="cms-publication-${GITHUB_RUN_ID}"
+          git switch --create "$publication_branch" origin/main
+          git rm -r --ignore-unmatch -- _data/site.yml _people assets/uploads
+          git checkout "$SOURCE_SHA" -- _data/site.yml _people assets/uploads
+          git add -- _data/site.yml _people assets/uploads
+
+          if git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No unpublished CMS content was found." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          unexpected=$(git diff --cached --name-only | grep -Ev '^(_data/site\.yml|_people/|assets/uploads/)' || true)
+          if test -n "$unexpected"; then
+            echo "Unexpected publication paths:" >&2
+            echo "$unexpected" >&2
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "content: publish Pages CMS snapshot"
+          git push origin "$publication_branch"
+
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          echo "publication_branch=$publication_branch" >> "$GITHUB_OUTPUT"
+
+      - name: Open pull request
+        if: steps.snapshot.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLICATION_BRANCH: ${{ steps.snapshot.outputs.publication_branch }}
+          EDITOR_NAME: ${{ needs.verify-request.outputs.editor_name }}
+          SOURCE_SHA: ${{ needs.verify-request.outputs.source_sha }}
+        run: |
+          set -euo pipefail
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          pr_url=$(gh pr create \
+            --base main \
+            --head "$PUBLICATION_BRANCH" \
+            --title "Publish Pages CMS updates" \
+            --body "Publication requested by ${EDITOR_NAME}.\n\nEditorial snapshot: \`${SOURCE_SHA}\`\nWorkflow run: ${run_url}\n\nThis pull request contains only Pages CMS-managed content.")
+          gh workflow run site-checks.yml --ref "$PUBLICATION_BRANCH"
+          echo "Publication pull request: $pr_url" >> "$GITHUB_STEP_SUMMARY"
+          echo "Site checks were dispatched for the publication commit." >> "$GITHUB_STEP_SUMMARY"
