@@ -7,54 +7,44 @@ sections:
     navigation_label: Our Process
     theme: neutral
     eyebrow: Our Process
-    heading: Most drug discovery begins with screening.
-    lead: >-
-      Millions of existing compounds are tested against a biological target to
+    heading: Most drug discovery begins with screening. Ours doesn't
+    lead: Millions of existing compounds are tested against a biological target to
       find the few that bind. It works, but it is slow, expensive, and limited
       to chemistry that already exists.
     paragraphs:
-      - >-
-        Ad Atomica's platform designs molecules atom by atom specifically for a
+      - Ad Atomica's platform designs molecules atom by atom specifically for a
         target rather than searching for compounds that already exist. Rapid,
-        iterative optimisation loops generate hits and take them through to
-        lead candidates at a fraction of the cost and time of traditional
-        programmes.
-      - >-
-        Our closed loop system integrates computational design with
-        experimental validation. Each cycle refines our models, improving
-        predictive accuracy and the quality of the next round of design. We
-        either partner with outsourced laboratories for rapid synthesis and
-        testing, or our clients choose to do that in-house as part of our
-        collaboration.
+        iterative optimisation loops generate hits and take them through to lead
+        candidates at a fraction of the cost and time of traditional programmes.
+      - Our closed loop system integrates computational design with experimental
+        validation. Each cycle refines our models, improving predictive accuracy
+        and the quality of the next round of design. We either partner with
+        outsourced laboratories for rapid synthesis and testing, or our clients
+        choose to do that in-house as part of our collaboration.
   - type: card-grid
     anchor: process-features
     theme: neutral
     numbered: true
     cards:
       - title: Multi-Parameter Optimisation
-        body: >-
-          Our system optimises for drug likeness, ADMET/PK, target affinity,
-          and selectivity together, and from the outset.
+        body: Our system optimises for drug likeness, ADMET/PK, target affinity, and
+          selectivity together, and from the outset.
       - title: Atom by Atom Construction
-        body: >-
-          Unlike screening-based approaches, we build molecules from first
-          principles, exploring vast chemical space to discover novel
-          scaffolds that conventional methods would miss.
+        body: Unlike screening-based approaches, we build molecules from first
+          principles, exploring vast chemical space to discover novel scaffolds
+          that conventional methods would miss.
       - title: Continuous Learning Loop
-        body: >-
-          Every synthesis and assay result feeds back into our models, so each
-          iteration improves our predictive power and the sophistication of
-          the next design.
+        body: Every synthesis and assay result feeds back into our models, so each
+          iteration improves our predictive power and the sophistication of the
+          next design.
   - type: statement
     anchor: programme-statement
     theme: neutral
     paragraphs:
-      - >-
-        Ad Atomica's platform designs highly optimised candidates in weeks,
+      - Ad Atomica's platform designs highly optimised candidates in weeks,
         dramatically reducing both discovery timelines and costs whilst
         maintaining rigorous scientific standards.
-      - >-
-        We run internal programmes on targets we select, progressing them
+      - We run internal programmes on targets we select, progressing them
         towards preclinical development. Each one helps us advance the platform
         and better serve our clients and partners.
   - type: video
@@ -68,47 +58,41 @@ sections:
     navigation_label: How We Work
     theme: accent
     heading: How We Work
-    introduction: >-
-      Ad Atomica works with biotech and pharma teams and with academic groups.
-      In both collaborations, you provide the target and we build and execute
-      the molecular design and optimisation programmes.
+    introduction: Ad Atomica works with biotech and pharma teams and with academic
+      groups. In both collaborations, you provide the target and we build and
+      execute the molecular design and optimisation programmes.
     numbered: false
     cards:
       - title: Discovery Services
-        body: >-
-          We run hit to lead and optimisation programmes end to end, taking
-          your target through successive design cycles to a series ready for
+        body: We run hit to lead and optimisation programmes end to end, taking your
+          target through successive design cycles to a series ready for
           pre-clinical development.
       - title: Academic Partnerships
-        body: >-
-          We partner with academic groups to design and synthesise a first
-          molecular series, testing a hypothesis in your field, then progress
-          successful programmes together.
+        body: We partner with academic groups to design and synthesise a first molecular
+          series, testing a hypothesis in your field, then progress successful
+          programmes together.
     cta_label: Start a conversation
   - type: people-grid
     anchor: team
     navigation_label: Meet the Team
     theme: neutral
     heading: The Team
-    introduction: >-
-      Our team combines entrepreneurial execution, deep technical expertise
-      and scientific rigour. We have brought together expertise from AI,
-      biotech, pharma and academia, and bring a pragmatic approach to the needs
-      of our clients and partners.
+    introduction: Our team combines entrepreneurial execution, deep technical
+      expertise and scientific rigour. We have brought together expertise from
+      AI, biotech, pharma and academia, and bring a pragmatic approach to the
+      needs of our clients and partners.
     group: team
   - type: people-grid
     anchor: advisory
     theme: neutral
     heading: Advisory
-    introduction: >-
-      Our scientific advisors bring world class expertise in oncology,
+    introduction: Our scientific advisors bring world class expertise in oncology,
       synthetic chemistry and drug development.
     group: advisor
 contact:
   eyebrow: Contact
   heading: Get in Touch
-  body: >-
-    We welcome conversations with pharma, biotech, academic groups, and
+  body: We welcome conversations with pharma, biotech, academic groups, and
     investors. Whether you have a target in mind or want to understand how we
     work, we would be glad to talk.
   cta_label: Start a conversation
