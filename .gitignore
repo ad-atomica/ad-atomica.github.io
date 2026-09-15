@@ -1,1 +1,5 @@
 .DS_Store
+
+# Local redesign source files (the production assets are copied into /assets)
+Adatomica website redesign/
+Adatomica website redesign.zip
